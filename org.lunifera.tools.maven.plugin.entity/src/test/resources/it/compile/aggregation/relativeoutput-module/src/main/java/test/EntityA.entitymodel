@@ -1,0 +1,6 @@
+package org.test.aggregation.relmodule {
+	
+	entity EntityA {
+		schemaName relmodule;
+	}
+}

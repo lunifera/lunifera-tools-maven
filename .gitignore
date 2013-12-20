@@ -5,3 +5,5 @@ target/
 bin/
 /build.dependencies.kepler.latest.log.properties
 /build.dependencies.luna.latest.log.properties
+src-gen/
+entity-gen/

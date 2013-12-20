@@ -1,0 +1,17 @@
+<lifecycleMappingMetadata>
+	<pluginExecutions>
+		<pluginExecution>
+			<pluginExecutionFilter>
+				<goals>
+					<goal>compile</goal>
+					<goal>testCompile</goal>
+					<goal>entity-install-debug-info</goal>
+					<goal>entity-test-install-debug-info</goal>
+				</goals>
+			</pluginExecutionFilter>
+			<action>
+				<ignore />
+			</action>
+		</pluginExecution>
+	</pluginExecutions>
+</lifecycleMappingMetadata>
