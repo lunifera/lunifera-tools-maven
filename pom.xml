@@ -4,8 +4,9 @@
 
 	<parent>
 		<groupId>org.lunifera.releng.maven</groupId>
-		<artifactId>org.lunifera.releng.maven.aggregator</artifactId>
+		<artifactId>org.lunifera.releng.maven.parent.mbp.aggregator</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
+		<relativePath>../lunifera-releng-maven/org.lunifera.releng.maven.parent.mbp.aggregator/pom.xml</relativePath>
 	</parent>
 
 	<groupId>org.lunifera.tools.maven</groupId>
@@ -14,6 +15,7 @@
 
 	<modules>
 		<module>org.lunifera.tools.maven.parent</module>
+		<module>org.lunifera.tools.maven.plugin.subsystem</module>
 	</modules>
 
 
