@@ -13,8 +13,7 @@
 	<packaging>pom</packaging>
 
 	<modules>
-		<module>org.lunifera.tools.maven.parent</module>
+		<module>org.lunifera.tools.maven.entity</module>
 	</modules>
-
 
 </project>
