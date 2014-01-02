@@ -9,7 +9,7 @@
 		<relativePath>../org.lunifera.tools.maven.parent/pom.xml</relativePath>
 	</parent>
 	
-	<artifactId>org.lunifera.tools.maven.entity</artifactId>
+	<artifactId>org.lunifera.tools.maven.plugin.entity</artifactId>
 	<packaging>maven-plugin</packaging>
 	<name>Lunifera Entity Maven Plugin</name>
 
