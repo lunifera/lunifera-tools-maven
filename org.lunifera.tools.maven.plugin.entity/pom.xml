@@ -93,11 +93,6 @@
 		</dependency>
 		<dependency>
 			<groupId>org.eclipse.xtext</groupId>
-			<artifactId>org.eclipse.xtext.ecore</artifactId>
-			<version>2.5.0-RELEASE</version>
-		</dependency>
-		<dependency>
-			<groupId>org.eclipse.xtext</groupId>
 			<artifactId>org.eclipse.xtext.xbase</artifactId>
 			<version>${xtext.version}</version>
 		</dependency>
@@ -190,16 +185,6 @@
 			<groupId>javax.persistence</groupId>
 			<artifactId>persistence-api</artifactId>
 			<version>1.0.2</version>
-		</dependency>
-		<dependency>
-			<groupId>org.eclipse.emf.xcore</groupId>
-			<artifactId>org.eclipse.emf.ecore.xcore</artifactId>
-			<version>1.1.2-RELEASE</version>
-		</dependency>
-		<dependency>
-			<groupId>org.eclipse.emf.xcore</groupId>
-			<artifactId>org.eclipse.emf.ecore.xcore.lib</artifactId>
-			<version>1.0.0-RELEASE</version>
 		</dependency>
 	</dependencies>
 	<build>

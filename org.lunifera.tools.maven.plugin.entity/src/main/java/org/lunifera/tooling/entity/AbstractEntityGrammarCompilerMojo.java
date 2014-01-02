@@ -21,15 +21,13 @@ import java.util.Map.Entry;
 import java.util.Properties;
 import java.util.Set;
 
-import org.apache.log4j.BasicConfigurator;
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.eclipse.xtext.xbase.file.ProjectConfig;
 import org.eclipse.xtext.xbase.file.RuntimeWorkspaceConfigProvider;
 import org.eclipse.xtext.xbase.file.WorkspaceConfig;
 import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
-import org.lunifera.dsl.entity.xtext.EntityGrammarStandaloneSetup;
-import org.lunifera.dsl.entity.xtext.compiler.EntityGrammarBatchCompiler;
+import org.lunifera.dsl.entity.xtext.compiler.batch.EntityGrammarBatchCompiler;
 
 import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;

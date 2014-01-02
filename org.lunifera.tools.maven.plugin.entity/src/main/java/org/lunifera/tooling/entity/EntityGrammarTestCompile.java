@@ -12,7 +12,7 @@ import org.apache.maven.artifact.DependencyResolutionRequiredException;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.eclipse.emf.common.util.WrappedException;
 import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
-import org.lunifera.dsl.entity.xtext.compiler.EntityGrammarBatchCompiler;
+import org.lunifera.dsl.entity.xtext.compiler.batch.EntityGrammarBatchCompiler;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;

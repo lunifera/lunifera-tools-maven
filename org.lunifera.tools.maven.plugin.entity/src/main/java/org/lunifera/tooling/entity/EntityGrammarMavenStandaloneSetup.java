@@ -1,7 +1,6 @@
 package org.lunifera.tooling.entity;
 
 import org.eclipse.emf.ecore.EPackage;
-import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.xtext.ISetup;
 import org.eclipse.xtext.xbase.annotations.XbaseWithAnnotationsStandaloneSetup;
 import org.lunifera.dsl.common.xtext.CommonGrammarStandaloneSetup;
@@ -20,8 +19,8 @@ public class EntityGrammarMavenStandaloneSetup implements ISetup {
 			return injector;
 		XbaseWithAnnotationsStandaloneSetup.doSetup();
 		CommonGrammarStandaloneSetup.doSetup();
-		Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("xcore", new XcoreResourceFactory());
-		EPackage.Registry.INSTANCE.put(EntityPackage.eINSTANCE.getNsURI(), EntityPackage.eINSTANCE);
+		EPackage.Registry.INSTANCE.put(EntityPackage.eINSTANCE.getNsURI(),
+				EntityPackage.eINSTANCE);
 		injector = Guice.createInjector(new EntityGrammarMavenModule());
 		new EntityGrammarStandaloneSetupGenerated().register(injector);
 		return injector;

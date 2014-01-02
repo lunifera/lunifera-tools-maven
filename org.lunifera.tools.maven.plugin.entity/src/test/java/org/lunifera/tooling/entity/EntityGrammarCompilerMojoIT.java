@@ -32,8 +32,8 @@ public class EntityGrammarCompilerMojoIT {
 	public void encoding() throws Exception {
 		Verifier verifier = newVerifier(ROOT + "/encoding");
 
-		String xtendDir = verifier.getBasedir() + "/src/main/java";
-		assertFileContainsUTF16(verifier, xtendDir + "/test/EntityA.entitymodel", "Mühlheim-Kärlicher Bürger");
+		String entityDir = verifier.getBasedir() + "/src/main/java";
+		assertFileContainsUTF16(verifier, entityDir + "/test/EntityA.entitymodel", "Mühlheim-Kärlicher Bürger");
 
 		verifier.setDebug(true);
 		verifier.executeGoal("test");

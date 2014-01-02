@@ -1,13 +1,9 @@
 package org.lunifera.tooling.entity;
 
-import org.apache.log4j.BasicConfigurator;
 import org.apache.maven.project.MavenProject;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.xtext.resource.XtextResourceSet;
-import org.lunifera.dsl.entity.xtext.EntityGrammarStandaloneSetup;
-import org.lunifera.dsl.entity.xtext.compiler.EntityGrammarBatchCompiler;
 
-import com.google.inject.Injector;
 import com.google.inject.Provider;
 
 /**
