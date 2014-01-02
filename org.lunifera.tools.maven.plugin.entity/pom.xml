@@ -1,14 +1,14 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	
+
 	<parent>
 		<groupId>org.lunifera.tools.maven</groupId>
 		<artifactId>org.lunifera.tools.maven.parent</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 		<relativePath>../org.lunifera.tools.maven.parent/pom.xml</relativePath>
 	</parent>
-	
+
 	<artifactId>org.lunifera.tools.maven.plugin.entity</artifactId>
 	<packaging>maven-plugin</packaging>
 	<name>Lunifera Entity Maven Plugin</name>
@@ -44,6 +44,10 @@
 			<id>central</id>
 			<name>Central Repository</name>
 			<url>http://repo.maven.apache.org/maven2</url>
+		</repository>
+		<repository>
+			<id>lunifera nexus</id>
+			<url>http://maven.lunifera.org:8086/nexus/content/repositories/snapshots/</url>
 		</repository>
 	</repositories>
 	<dependencies>
