@@ -66,7 +66,7 @@ public abstract class AbstractEntityGrammarCompilerMojo extends AbstractEntityGr
 	/**
 	 * Location of the Entity settings file.
 	 * 
-	 * @parameter default-value="${basedir}/.settings/org.eclipse.xtend.core.Entity.prefs"
+	 * @parameter default-value="${basedir}/.settings/org.lunifera.dsl.entity.xtext.Entity.prefs"
 	 * @readonly
 	 */
 	private String propertiesFileLocation;

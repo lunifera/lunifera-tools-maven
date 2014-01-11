@@ -59,7 +59,7 @@ public class EntityGrammarCompile extends AbstractEntityGrammarCompilerMojo {
 		compileSources(entityGrammarBatchCompilerProvider.get());
 	}
 
-	private void compileSources(EntityGrammarBatchCompiler entity2BatchCompiler) throws MojoExecutionException {
+	protected void compileSources(EntityGrammarBatchCompiler entity2BatchCompiler) throws MojoExecutionException {
 		List<String> compileSourceRoots = Lists.newArrayList(project.getCompileSourceRoots());
 		String classPath = concat(File.pathSeparator, getClassPath());
 		project.addCompileSourceRoot(outputDirectory);
