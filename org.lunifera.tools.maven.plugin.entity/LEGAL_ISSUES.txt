@@ -1,0 +1,5 @@
+This implementation is based on ideas and code of 
+
+org.eclipse.xtend maven plugin
+
+We are using parts of their semantics, syntactics and also written code.

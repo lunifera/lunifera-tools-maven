@@ -1,0 +1,6 @@
+package org.test.withtestsrc {
+	
+	entity EntityA {
+		schemaName withtestsrc;
+	}
+}

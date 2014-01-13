@@ -1,0 +1,7 @@
+package org.test.errors {
+	
+	entity EntityA extends EntityB {
+		schemaName errors;
+		
+	}
+}

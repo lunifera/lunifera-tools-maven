@@ -1,0 +1,6 @@
+package org.test.aggregation.relmodule.tests {
+	
+	entity EntityB extends EntityA {
+		schemaName relmoduletests;
+	}
+}

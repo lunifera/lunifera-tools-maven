@@ -16,7 +16,7 @@
 	<modules>
 		<module>org.lunifera.tools.maven.parent</module>
 		<module>org.lunifera.tools.maven.plugin.subsystem</module>
+		<module>org.lunifera.tools.maven.plugin.entity</module>
 	</modules>
-
 
 </project>
