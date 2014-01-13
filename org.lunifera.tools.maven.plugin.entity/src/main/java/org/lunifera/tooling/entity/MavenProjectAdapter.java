@@ -1,3 +1,15 @@
+/**
+ * Copyright (c) 2011 - 2014, Lunifera GmbH (Gross Enzersdorf)
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ * 
+ * Based on Xtend Maven Plugin
+ * 
+ * Contributors: 
+ * 		Florian Pirchner - Initial implementation
+ */
 package org.lunifera.tooling.entity;
 
 import java.util.Iterator;
@@ -7,10 +19,6 @@ import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.impl.AdapterImpl;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 
-/**
- * 
- * @author Moritz Eysholdt
- */
 public class MavenProjectAdapter extends AdapterImpl {
 	public static MavenProject get(ResourceSet rs) {
 		for (Adapter a : rs.eAdapters())

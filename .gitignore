@@ -7,3 +7,4 @@ bin/
 /build.dependencies.luna.latest.log.properties
 src-gen/
 entity-gen/
+.DS_Store
