@@ -31,6 +31,10 @@ import com.google.common.collect.Sets;
 
 /**
  * Goal which compiles Entity sources.
+ * 
+ * @goal compile
+ * @phase generate-sources
+ * @requiresDependencyResolution compile
  */
 public class EntityGrammarCompile extends AbstractEntityGrammarCompilerMojo {
 	/** 
