@@ -14,59 +14,38 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>org.eclipse.aether</groupId>
-			<artifactId>aether-api</artifactId>
+			<groupId>biz.aQute.bnd</groupId>
+			<artifactId>bndlib</artifactId>
+			<version>2.2.0</version>
 		</dependency>
-		<dependency>
-			<groupId>org.eclipse.aether</groupId>
-			<artifactId>aether-util</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.felix</groupId>
-			<artifactId>maven-bundle-plugin</artifactId>
-			<exclusions>
-				<exclusion>
-					<artifactId>
-						org.apache.felix.bundlerepository
-					</artifactId>
-					<groupId>org.apache.felix</groupId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.apache.maven.shared</groupId>
-					<artifactId>maven-dependency-tree</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-
-		<dependency>
-			<groupId>org.apache.maven.shared</groupId>
-			<artifactId>maven-dependency-tree</artifactId>
-		</dependency>
+		<!-- <dependency> -->
+		<!-- <groupId>org.apache.maven.shared</groupId> -->
+		<!-- <artifactId>maven-dependency-tree</artifactId> -->
+		<!-- <exclusions> -->
+		<!-- <exclusion> -->
+		<!-- <artifactId>maven-model</artifactId> -->
+		<!-- <groupId>org.apache.maven</groupId> -->
+		<!-- </exclusion> -->
+		<!-- <exclusion> -->
+		<!-- <artifactId>maven-project</artifactId> -->
+		<!-- <groupId>org.apache.maven</groupId> -->
+		<!-- </exclusion> -->
+		<!-- </exclusions> -->
+		<!-- </dependency> -->
 
 		<!-- Mandatory OSGI R5 API -->
 		<dependency>
 			<groupId>org.osgi</groupId>
 			<artifactId>org.osgi.core</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.osgi</groupId>
-			<artifactId>org.osgi.enterprise</artifactId>
+			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.aries.subsystem</groupId>
 			<artifactId>org.apache.aries.subsystem.core</artifactId>
 			<exclusions>
 				<exclusion>
-					<artifactId>
-						org.apache.aries.subsystem.api
-					</artifactId>
-					<groupId>org.apache.aries.subsystem</groupId>
-				</exclusion>
-				<exclusion>
-					<artifactId>
-						org.apache.aries.application.utils
-					</artifactId>
 					<groupId>org.apache.aries.application</groupId>
+					<artifactId>org.apache.aries.application.utils</artifactId>
 				</exclusion>
 				<exclusion>
 					<artifactId>
@@ -102,11 +81,29 @@
 		<dependency>
 			<groupId>org.apache.maven</groupId>
 			<artifactId>maven-archiver</artifactId>
+			<exclusions>
+				<exclusion>
+					<artifactId>maven-model</artifactId>
+					<groupId>org.apache.maven</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>maven-artifact</artifactId>
+					<groupId>org.apache.maven</groupId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.maven</groupId>
+			<artifactId>maven-plugin-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.maven</groupId>
+			<artifactId>maven-core</artifactId>
 		</dependency>
 	</dependencies>
 
@@ -123,7 +120,8 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-plugin-plugin</artifactId>
 				<configuration>
-					<goalPrefix>subsystem</goalPrefix>
+					<detail>true</detail>
+					<goalPrefix>lunifera</goalPrefix>
 					<skipErrorNoDescriptorsFound>true</skipErrorNoDescriptorsFound>
 				</configuration>
 				<executions>
@@ -147,7 +145,6 @@
 		<profile>
 			<id>run-its</id>
 			<build>
-
 				<plugins>
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>

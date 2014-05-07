@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2013 C4biz Softwares ME, Loetz KG.
+ * Copyright (c) 2013, 2014 C4biz Softwares ME, Loetz KG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -13,22 +13,20 @@ package org.lunifera.tools.maven.plugin.subsystems;
 import java.io.File;
 
 import org.apache.maven.execution.MavenSession;
-import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
+import org.apache.maven.plugin.descriptor.PluginDescriptor;
 import org.apache.maven.plugins.annotations.Component;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.project.MavenProject;
 import org.apache.maven.project.MavenProjectHelper;
+import org.apache.maven.rtinfo.RuntimeInformation;
 import org.sonatype.plexus.build.incremental.BuildContext;
 
-public abstract class AbstractSubsystemMojo extends AbstractMojo {
+public abstract class AbstractMojo extends org.apache.maven.plugin.AbstractMojo {
 
     @Component
     private BuildContext buildContext;
-
-    @Parameter(property = "deliverableByIP", defaultValue = "false")
-    private boolean deliverableByIP;
 
     /**
      * Directory containing the classes and resource files that should be
@@ -37,6 +35,13 @@ public abstract class AbstractSubsystemMojo extends AbstractMojo {
     @Parameter(defaultValue = "${project.build.outputDirectory}",
             property = "outputDirectory", required = true)
     private File outputDirectory;
+
+    /**
+     * 
+     */
+    @Component
+    // for Maven 3 only
+    private PluginDescriptor pluginDescriptor;
 
     /**
      * The Maven project.
@@ -51,19 +56,50 @@ public abstract class AbstractSubsystemMojo extends AbstractMojo {
     private MavenProjectHelper projectHelper;
 
     /**
-     * The Maven session"
+     * The runtime information for Maven, used to retrieve Maven's version
+     * number.
+     *
+     * @component
+     */
+    @Component
+    private RuntimeInformation runtimeInformation;
+
+    /**
+     * The Maven session".
+     * <p>
+     * Required in order to create the jar artifact.
      */
     @Component
     private MavenSession session;
 
-    public AbstractSubsystemMojo() {
+    /**
+     * Set this to <code>true</code> to skip the generation of the Subsystem
+     * Manifest file.
+     */
+    @Parameter(defaultValue = "false", property = "skip", required = true)
+    private boolean skip;
+
+    public AbstractMojo() {
     }
 
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
-        if (!getProject().getArtifact().getType().equals("subsystem")) {
+
+        if (!runtimeInformation.isMavenVersion("[3.1,)")) {
+            throw new UnsupportedOperationException(
+                    "Lunifera requires Maven 3.1 or higher.");
+        }
+        if (!getProject().getArtifact().getType().startsWith("subsystem")) {
             getLog().warn("Ignoring project " + getProject().getId());
         }
+
+        if (skip) {
+            getLog().info(
+                    "Skiping " + shortDescription() + " for project "
+                            + getProject().getId());
+            return;
+        }
+
     }
 
     protected BuildContext getBuildContext() {
@@ -72,6 +108,10 @@ public abstract class AbstractSubsystemMojo extends AbstractMojo {
 
     protected File getOutputDirectory() {
         return outputDirectory;
+    }
+
+    protected PluginDescriptor getPluginDescriptor() {
+        return pluginDescriptor;
     }
 
     protected MavenProject getProject() {
@@ -86,8 +126,6 @@ public abstract class AbstractSubsystemMojo extends AbstractMojo {
         return session;
     }
 
-    public boolean isDeliverableByIP() {
-        return deliverableByIP;
-    }
+    protected abstract String shortDescription();
 
 }

@@ -12,7 +12,7 @@ package org.lunifera.tools.maven.plugin.subsystems;
 
 import org.apache.maven.plugins.annotations.Parameter;
 
-public class DeploymentManifestConfiguration extends AbstractSubsystemMojo {
+public class PojoDeploymentManifestConfiguration {
 
 	/**
 	 * The Deployment-ManifestVersion header defines that the deployment

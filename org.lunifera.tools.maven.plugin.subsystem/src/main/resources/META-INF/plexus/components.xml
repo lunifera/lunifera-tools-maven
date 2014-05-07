@@ -2,43 +2,26 @@
 <component-set>
 	<components>
 		<component>
-			<!-- if aggregator package contains a p2 that should be added into a master 
-				composite repository -->
-			<!-- if aggregator package must produces a obr index that should be added 
-				into a OBR federated master repository -->
-			<role>org.apache.maven.lifecycle.mapping.LifecycleMapping</role>
-			<role-hint>aggregator</role-hint>
-			<implementation>org.apache.maven.lifecycle.mapping.DefaultLifecycleMapping
+			<role>org.apache.maven.artifact.handler.ArtifactHandler</role>
+			<role-hint>bundle</role-hint>
+			<implementation>org.apache.maven.artifact.handler.DefaultArtifactHandler
 			</implementation>
 			<configuration>
-				<lifecycles>
-					<lifecycle>
-						<id>default</id>
-						<!-- START SNIPPET: bundle-lifecycle -->
-						<phases>
-							<generate-resources>
-								${project.groupId}:${project.artifactId}:${project.version}:manifest-feature
-							</generate-resources>
-							<process-resources>
-								org.apache.maven.plugins:maven-resources-plugin:resources
-							</process-resources>
-							<!-- <compile>org.apache.maven.plugins:maven-compiler-plugin:compile</compile> -->
-							<!-- <process-test-resources>org.apache.maven.plugins:maven-resources-plugin:testResources</process-test-resources> -->
-							<!-- <test-compile>org.apache.maven.plugins:maven-compiler-plugin:testCompile</test-compile> -->
-							<!-- <test>org.apache.maven.plugins:maven-surefire-plugin:test</test> -->
-							<package>${project.groupId}:${project.artifactId}:${project.version}:pack
-							</package>
-							<install>
-								org.apache.maven.plugins:maven-install-plugin:install
-							</install>
-							<deploy>
-								org.apache.maven.plugins:maven-deploy-plugin:deploy
-							</deploy>
-						</phases>
-						<!-- END SNIPPET: bundle-lifecycle -->
-					</lifecycle>
-				</lifecycles>
+				<type>bundle</type>
+				<includesDependencies>false</includesDependencies>
+				<language>java</language>
+				<extension>jar</extension>
+				<addedToClasspath>true</addedToClasspath>
+				<packaging>bundle</packaging>
 			</configuration>
+		</component>
+		<component>
+			<role>org.codehaus.plexus.archiver.Archiver</role>
+			<role-hint>esa</role-hint>
+			<implementation>org.lunifera.tools.maven.plugin.subsystems.SubsystemArchiverComponent
+			</implementation>
+			<instantiation-strategy>singleton</instantiation-strategy>
+<!--             <instantiation-strategy>per-lookup</instantiation-strategy> -->
 		</component>
 		<component>
 			<role>org.apache.maven.lifecycle.mapping.LifecycleMapping</role>
@@ -52,7 +35,7 @@
 						<!-- START SNIPPET: bundle-lifecycle -->
 						<phases>
 							<generate-resources>
-								${project.groupId}:${project.artifactId}:${project.version}:manifest-feature
+								${project.groupId}:${project.artifactId}:${project.version}:gen-manifest-feature
 							</generate-resources>
 							<process-resources>
 								org.apache.maven.plugins:maven-resources-plugin:resources
@@ -61,7 +44,7 @@
 							<!-- <process-test-resources>org.apache.maven.plugins:maven-resources-plugin:testResources</process-test-resources> -->
 							<!-- <test-compile>org.apache.maven.plugins:maven-compiler-plugin:testCompile</test-compile> -->
 							<!-- <test>org.apache.maven.plugins:maven-surefire-plugin:test</test> -->
-							<package>${project.groupId}:${project.artifactId}:${project.version}:pack
+							<package>${project.groupId}:${project.artifactId}:${project.version}:pack-esa
 							</package>
 							<install>
 								org.apache.maven.plugins:maven-install-plugin:install
@@ -83,13 +66,13 @@
 			<configuration>
 				<!--the type used when specifying dependencies etc. -->
 				<type>subsystem-feature</type>
-				<includesDependencies>true</includesDependencies>
+				<includesDependencies>false</includesDependencies>
 				<language>java</language>
 				<!--the extension used by Maven in the repository -->
 				<extension>esa</extension>
 				<!--the packaging used when declaring an implementation of the packaging -->
 				<packaging>subsystem-feature</packaging>
-				<addedToClasspath>true</addedToClasspath>
+				<addedToClasspath>false</addedToClasspath>
 			</configuration>
 		</component>
 		<component>
@@ -104,7 +87,7 @@
 						<!-- START SNIPPET: bundle-lifecycle -->
 						<phases>
 							<generate-resources>
-								${project.groupId}:${project.artifactId}:${project.version}:manifest-composite
+								${project.groupId}:${project.artifactId}:${project.version}:gen-manifest-composite
 							</generate-resources>
 							<process-resources>
 								org.apache.maven.plugins:maven-resources-plugin:resources
@@ -113,7 +96,7 @@
 							<!-- <process-test-resources>org.apache.maven.plugins:maven-resources-plugin:testResources</process-test-resources> -->
 							<!-- <test-compile>org.apache.maven.plugins:maven-compiler-plugin:testCompile</test-compile> -->
 							<!-- <test>org.apache.maven.plugins:maven-surefire-plugin:test</test> -->
-							<package>${project.groupId}:${project.artifactId}:${project.version}:pack
+							<package>${project.groupId}:${project.artifactId}:${project.version}:pack-esa
 							</package>
 							<install>
 								org.apache.maven.plugins:maven-install-plugin:install
@@ -135,13 +118,13 @@
 			<configuration>
 				<!--the type used when specifying dependencies etc. -->
 				<type>subsystem-composite</type>
-				<includesDependencies>true</includesDependencies>
+				<includesDependencies>false</includesDependencies>
 				<language>java</language>
 				<!--the extension used by Maven in the repository -->
 				<extension>esa</extension>
 				<!--the packaging used when declaring an implementation of the packaging -->
 				<packaging>subsystem-composite</packaging>
-				<addedToClasspath>true</addedToClasspath>
+				<addedToClasspath>false</addedToClasspath>
 			</configuration>
 		</component>
 		<component>
@@ -156,7 +139,7 @@
 						<!-- START SNIPPET: bundle-lifecycle -->
 						<phases>
 							<generate-resources>
-								${project.groupId}:${project.artifactId}:${project.version}:manifest-application
+								${project.groupId}:${project.artifactId}:${project.version}:gen-manifest-application
 							</generate-resources>
 							<process-resources>
 								org.apache.maven.plugins:maven-resources-plugin:resources
@@ -165,7 +148,7 @@
 							<!-- <process-test-resources>org.apache.maven.plugins:maven-resources-plugin:testResources</process-test-resources> -->
 							<!-- <test-compile>org.apache.maven.plugins:maven-compiler-plugin:testCompile</test-compile> -->
 							<!-- <test>org.apache.maven.plugins:maven-surefire-plugin:test</test> -->
-							<package>${project.groupId}:${project.artifactId}:${project.version}:pack
+							<package>${project.groupId}:${project.artifactId}:${project.version}:pack-esa
 							</package>
 							<install>
 								org.apache.maven.plugins:maven-install-plugin:install
@@ -187,170 +170,13 @@
 			<configuration>
 				<!--the type used when specifying dependencies etc. -->
 				<type>subsystem-application</type>
-				<includesDependencies>true</includesDependencies>
+				<includesDependencies>false</includesDependencies>
 				<language>java</language>
 				<!--the extension used by Maven in the repository -->
 				<extension>esa</extension>
 				<!--the packaging used when declaring an implementation of the packaging -->
 				<packaging>subsystem-application</packaging>
-				<addedToClasspath>true</addedToClasspath>
-			</configuration>
-		</component>
-		<component>
-			<role>org.apache.maven.lifecycle.mapping.LifecycleMapping</role>
-			<role-hint>subsystem-distributed-application</role-hint>
-			<implementation>org.apache.maven.lifecycle.mapping.DefaultLifecycleMapping
-			</implementation>
-			<configuration>
-				<lifecycles>
-					<lifecycle>
-						<id>default</id>
-						<!-- START SNIPPET: bundle-lifecycle -->
-						<phases>
-							<generate-resources>
-								${project.groupId}:${project.artifactId}:${project.version}:manifest-composite
-							</generate-resources>
-							<process-resources>
-								org.apache.maven.plugins:maven-resources-plugin:resources
-							</process-resources>
-							<!-- <compile>org.apache.maven.plugins:maven-compiler-plugin:compile</compile> -->
-							<!-- <process-test-resources>org.apache.maven.plugins:maven-resources-plugin:testResources</process-test-resources> -->
-							<!-- <test-compile>org.apache.maven.plugins:maven-compiler-plugin:testCompile</test-compile> -->
-							<!-- <test>org.apache.maven.plugins:maven-surefire-plugin:test</test> -->
-							<package>${project.groupId}:${project.artifactId}:${project.version}:pack
-							</package>
-							<install>
-								org.apache.maven.plugins:maven-install-plugin:install
-							</install>
-							<deploy>
-								org.apache.maven.plugins:maven-deploy-plugin:deploy
-							</deploy>
-						</phases>
-						<!-- END SNIPPET: bundle-lifecycle -->
-					</lifecycle>
-				</lifecycles>
-			</configuration>
-		</component>
-		<component>
-			<role>org.apache.maven.artifact.handler.ArtifactHandler</role>
-			<role-hint>subsystem-distributed-application</role-hint>
-			<implementation>org.apache.maven.artifact.handler.DefaultArtifactHandler
-			</implementation>
-			<configuration>
-				<!--the type used when specifying dependencies etc. -->
-				<type>subsystem-distributed-application</type>
-				<includesDependencies>true</includesDependencies>
-				<language>java</language>
-				<!--the extension used by Maven in the repository -->
-				<extension>esa</extension>
-				<!--the packaging used when declaring an implementation of the packaging -->
-				<packaging>subsystem-distributed-application</packaging>
-				<addedToClasspath>true</addedToClasspath>
-			</configuration>
-		</component>
-		<component>
-			<role>org.apache.maven.lifecycle.mapping.LifecycleMapping</role>
-			<role-hint>subsystem-cloud-application</role-hint>
-			<implementation>org.apache.maven.lifecycle.mapping.DefaultLifecycleMapping
-			</implementation>
-			<configuration>
-				<lifecycles>
-					<lifecycle>
-						<id>default</id>
-						<!-- START SNIPPET: bundle-lifecycle -->
-						<phases>
-							<generate-resources>
-								${project.groupId}:${project.artifactId}:${project.version}:manifest-composite
-							</generate-resources>
-							<process-resources>
-								org.apache.maven.plugins:maven-resources-plugin:resources
-							</process-resources>
-							<!-- <compile>org.apache.maven.plugins:maven-compiler-plugin:compile</compile> -->
-							<!-- <process-test-resources>org.apache.maven.plugins:maven-resources-plugin:testResources</process-test-resources> -->
-							<!-- <test-compile>org.apache.maven.plugins:maven-compiler-plugin:testCompile</test-compile> -->
-							<!-- <test>org.apache.maven.plugins:maven-surefire-plugin:test</test> -->
-							<package>${project.groupId}:${project.artifactId}:${project.version}:pack
-							</package>
-							<install>
-								org.apache.maven.plugins:maven-install-plugin:install
-							</install>
-							<deploy>
-								org.apache.maven.plugins:maven-deploy-plugin:deploy
-							</deploy>
-						</phases>
-						<!-- END SNIPPET: bundle-lifecycle -->
-					</lifecycle>
-				</lifecycles>
-			</configuration>
-		</component>
-		<component>
-			<role>org.apache.maven.artifact.handler.ArtifactHandler</role>
-			<role-hint>subsystem-cloud-application</role-hint>
-			<implementation>org.apache.maven.artifact.handler.DefaultArtifactHandler
-			</implementation>
-			<configuration>
-				<!--the type used when specifying dependencies etc. -->
-				<type>subsystem-cloud-application</type>
-				<includesDependencies>true</includesDependencies>
-				<language>java</language>
-				<!--the extension used by Maven in the repository -->
-				<extension>esa</extension>
-				<!--the packaging used when declaring an implementation of the packaging -->
-				<packaging>subsystem-cloud-application</packaging>
-				<addedToClasspath>true</addedToClasspath>
-			</configuration>
-		</component>
-		<component>
-			<role>org.apache.maven.lifecycle.mapping.LifecycleMapping</role>
-			<role-hint>subsystem-feature,subsystem-composite,subsystem-application,subsystem-remote-application
-			</role-hint>
-			<implementation>org.apache.maven.lifecycle.mapping.DefaultLifecycleMapping
-			</implementation>
-			<configuration>
-				<lifecycles>
-					<lifecycle>
-						<id>default</id>
-						<!-- START SNIPPET: bundle-lifecycle -->
-						<phases>
-							<generate-resources>
-								${project.groupId}:${project.artifactId}:${project.version}:manifest
-							</generate-resources>
-							<process-resources>
-								org.apache.maven.plugins:maven-resources-plugin:resources
-							</process-resources>
-							<!-- <compile>org.apache.maven.plugins:maven-compiler-plugin:compile</compile> -->
-							<!-- <process-test-resources>org.apache.maven.plugins:maven-resources-plugin:testResources</process-test-resources> -->
-							<!-- <test-compile>org.apache.maven.plugins:maven-compiler-plugin:testCompile</test-compile> -->
-							<!-- <test>org.apache.maven.plugins:maven-surefire-plugin:test</test> -->
-							<package>${project.groupId}:${project.artifactId}:${project.version}:pack
-							</package>
-							<install>
-								org.apache.maven.plugins:maven-install-plugin:install
-							</install>
-							<deploy>
-								org.apache.maven.plugins:maven-deploy-plugin:deploy
-							</deploy>
-						</phases>
-						<!-- END SNIPPET: bundle-lifecycle -->
-					</lifecycle>
-				</lifecycles>
-			</configuration>
-		</component>
-		<component>
-			<role>org.apache.maven.artifact.handler.ArtifactHandler</role>
-			<role-hint>subsystem</role-hint>
-			<implementation>org.apache.maven.artifact.handler.DefaultArtifactHandler
-			</implementation>
-			<configuration>
-				<!--the type used when specifying dependencies etc. -->
-				<type>subsystem</type>
-				<includesDependencies>true</includesDependencies>
-				<language>java</language>
-				<!--the extension used by Maven in the repository -->
-				<extension>esa</extension>
-				<!--the packaging used when declaring an implementation of the packaging -->
-				<packaging>subsystem</packaging>
-				<addedToClasspath>true</addedToClasspath>
+				<addedToClasspath>false</addedToClasspath>
 			</configuration>
 		</component>
 	</components>

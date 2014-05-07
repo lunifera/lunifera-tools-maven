@@ -3,10 +3,10 @@
         <pluginExecution>
             <pluginExecutionFilter>
                 <goals>
-                    <goal>manifest-application</goal>
-                    <goal>manifest-composite</goal>
-                    <goal>manifest-feature</goal>
-                    <goal>pack</goal>
+                    <goal>gen-manifest-application</goal>
+                    <goal>gen-manifest-composite</goal>
+                    <goal>gen-manifest-feature</goal>
+                    <goal>pack-esa</goal>
                 </goals>
             </pluginExecutionFilter>
             <action>
