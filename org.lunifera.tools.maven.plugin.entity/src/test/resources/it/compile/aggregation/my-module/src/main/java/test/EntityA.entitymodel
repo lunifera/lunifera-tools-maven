@@ -1,0 +1,6 @@
+package org.test.aggregation {
+	
+	entity EntityA {
+		schemaName aggregation;
+	}
+}

@@ -1,0 +1,8 @@
+package org.test.multisource2 {
+	
+	import org.test.multisource.*;
+	
+	entity EntityC extends EntityB {
+		schemaName multisource;
+	}
+}
