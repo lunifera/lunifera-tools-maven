@@ -11,7 +11,8 @@
 
 	<artifactId>org.lunifera.tools.maven.plugin.entity</artifactId>
 	<packaging>maven-plugin</packaging>
-	<name>Lunifera Entity Maven Plugin</name>
+	<name>Lunifera Maven : Entity Plugin</name>
+	<description>A maven plugin that aims to generate the artifacts defined by the Lunifera Entity DSL.</description>
 
 	<properties>
 		<emf.version>[2.9.0,)</emf.version>
@@ -23,36 +24,11 @@
 		<commons-cli.version>1.2</commons-cli.version>
 		<icu4j.version>52.1</icu4j.version>
 
-		<project.build.sourceEncoding>ISO-8859-1</project.build.sourceEncoding>
-		<project.reporting.outputEncoding>ISO-8859-1</project.reporting.outputEncoding>
-		<maven.compiler.source>1.5</maven.compiler.source>
-		<maven.compiler.target>1.5</maven.compiler.target>
 		<mirroring.phase>prepare-package</mirroring.phase>
 		<skipMirroring>false</skipMirroring>
 		<xtext.version>2.5.3</xtext.version>
 	</properties>
 
-	<repositories>
-		<repository>
-			<id>central snapshots</id>
-			<url>https://oss.sonatype.org/content/repositories/snapshots/</url>
-		</repository>
-		<repository>
-			<snapshots>
-				<enabled>false</enabled>
-			</snapshots>
-			<id>central</id>
-			<name>Central Repository</name>
-			<url>http://repo.maven.apache.org/maven2</url>
-		</repository>
-		<repository>
-			<id>lunifera nexus</id>
-			<url>http://maven.lunifera.org:8086/nexus/content/repositories/snapshots/</url>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-		</repository>
-	</repositories>
 	<dependencies>
 		<dependency>
 			<groupId>com.google.guava</groupId>
@@ -217,110 +193,90 @@
 					<goalPrefix>entity</goalPrefix>
 				</configuration>
 			</plugin>
-			<plugin>
-				<artifactId>maven-antrun-plugin</artifactId>
-				<executions>
-					<execution>
-						<phase>pre-integration-test</phase>
-						<configuration>
-							<target unless="maven.test.skip">
-								<property name="src.jar"
-									value="${project.build.directory}/${project.build.finalName}.jar" />
-								<property name="it.jar.name" value="${project.build.finalName}-it" />
-								<property name="it.jar.directory"
-									value="${project.build.directory}/${it.jar.name}" />
-								<unzip src="${src.jar}" dest="${it.jar.directory}" />
-								<replaceregexp file="${it.jar.directory}/META-INF/maven/plugin.xml"
-									match="&lt;version&gt;(.*)&lt;/version&gt;" replace="&lt;version&gt;IT-SNAPSHOT&lt;/version&gt;"
-									byline="false" />
-								<jar destfile="${project.build.directory}/${it.jar.name}.jar"
-									basedir="${it.jar.directory}" />
-							</target>
-						</configuration>
-						<goals>
-							<goal>run</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<artifactId>maven-install-plugin</artifactId>
-				<executions>
-					<execution>
-						<phase>pre-integration-test</phase>
-						<goals>
-							<goal>install-file</goal>
-						</goals>
-						<configuration>
-							<file>${project.build.directory}/${project.build.finalName}-it.jar</file>
-							<groupId>${project.groupId}</groupId>
-							<artifactId>${project.artifactId}</artifactId>
-							<version>IT-SNAPSHOT</version>
-							<packaging>maven-plugin</packaging>
-							<pomFile>pom.xml</pomFile>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<artifactId>maven-surefire-plugin</artifactId>
-				<configuration>
-					<argLine>-Xmx1024m -XX:MaxPermSize=512m</argLine>
-				</configuration>
-				<executions>
-					<execution>
-						<phase>integration-test</phase>
-						<goals>
-							<goal>test</goal>
-						</goals>
-						<configuration>
-							<excludes>
-								<exclude>**/*Test.java</exclude>
-							</excludes>
-							<includes>
-								<include>**/*IT.java</include>
-							</includes>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
 		</plugins>
-		<pluginManagement>
-			<plugins>
-				<!--This plugin's configuration is used to store Eclipse m2e settings 
-					only. It has no influence on the Maven build itself. -->
-				<plugin>
-					<groupId>org.eclipse.m2e</groupId>
-					<artifactId>lifecycle-mapping</artifactId>
-					<version>1.0.0</version>
-					<configuration>
-						<lifecycleMappingMetadata>
-							<pluginExecutions>
-								<pluginExecution>
-									<pluginExecutionFilter>
-										<groupId>
-											org.apache.maven.plugins
-										</groupId>
-										<artifactId>
-											maven-compiler-plugin
-										</artifactId>
-										<versionRange>
-											[3.0,)
-										</versionRange>
-										<goals>
-											<goal>compile</goal>
-											<goal>testCompile</goal>
-										</goals>
-									</pluginExecutionFilter>
-									<action>
-										<ignore></ignore>
-									</action>
-								</pluginExecution>
-							</pluginExecutions>
-						</lifecycleMappingMetadata>
-					</configuration>
-				</plugin>
-			</plugins>
-		</pluginManagement>
 	</build>
+
+	<profiles>
+		<profile>
+			<id>run-its</id>
+			<activation>
+				<property>
+					<name>lunifera.build.full</name>
+					<value>true</value>
+				</property>
+				<activeByDefault>false</activeByDefault>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<artifactId>maven-antrun-plugin</artifactId>
+						<executions>
+							<execution>
+								<phase>pre-integration-test</phase>
+								<configuration>
+									<target unless="maven.test.skip">
+										<property name="src.jar"
+											value="${project.build.directory}/${project.build.finalName}.jar" />
+										<property name="it.jar.name" value="${project.build.finalName}-it" />
+										<property name="it.jar.directory"
+											value="${project.build.directory}/${it.jar.name}" />
+										<unzip src="${src.jar}" dest="${it.jar.directory}" />
+										<replaceregexp file="${it.jar.directory}/META-INF/maven/plugin.xml"
+											match="&lt;version&gt;(.*)&lt;/version&gt;" replace="&lt;version&gt;IT-SNAPSHOT&lt;/version&gt;"
+											byline="false" />
+										<jar destfile="${project.build.directory}/${it.jar.name}.jar"
+											basedir="${it.jar.directory}" />
+									</target>
+								</configuration>
+								<goals>
+									<goal>run</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<artifactId>maven-install-plugin</artifactId>
+						<executions>
+							<execution>
+								<phase>pre-integration-test</phase>
+								<goals>
+									<goal>install-file</goal>
+								</goals>
+								<configuration>
+									<file>${project.build.directory}/${project.build.finalName}-it.jar</file>
+									<groupId>${project.groupId}</groupId>
+									<artifactId>${project.artifactId}</artifactId>
+									<version>IT-SNAPSHOT</version>
+									<packaging>maven-plugin</packaging>
+									<pomFile>pom.xml</pomFile>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<artifactId>maven-surefire-plugin</artifactId>
+						<configuration>
+							<argLine>-Xmx1024m -XX:MaxPermSize=512m</argLine>
+						</configuration>
+						<executions>
+							<execution>
+								<phase>integration-test</phase>
+								<goals>
+									<goal>test</goal>
+								</goals>
+								<configuration>
+									<excludes>
+										<exclude>**/*Test.java</exclude>
+									</excludes>
+									<includes>
+										<include>**/*IT.java</include>
+									</includes>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
 </project>

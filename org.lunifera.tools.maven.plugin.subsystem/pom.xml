@@ -10,6 +10,8 @@
 	</parent>
 
 	<artifactId>org.lunifera.tools.maven.plugin.subsystem</artifactId>
+	<name>Lunifera Maven : Subsystem Plugin</name>
+	<description>A maven plugin aimed to generate the OSGi subsystem compressed artifact based on information defined in the POM.</description>
 	<packaging>maven-plugin</packaging>
 
 	<dependencies>
@@ -18,20 +20,6 @@
 			<artifactId>bndlib</artifactId>
 			<version>2.2.0</version>
 		</dependency>
-		<!-- <dependency> -->
-		<!-- <groupId>org.apache.maven.shared</groupId> -->
-		<!-- <artifactId>maven-dependency-tree</artifactId> -->
-		<!-- <exclusions> -->
-		<!-- <exclusion> -->
-		<!-- <artifactId>maven-model</artifactId> -->
-		<!-- <groupId>org.apache.maven</groupId> -->
-		<!-- </exclusion> -->
-		<!-- <exclusion> -->
-		<!-- <artifactId>maven-project</artifactId> -->
-		<!-- <groupId>org.apache.maven</groupId> -->
-		<!-- </exclusion> -->
-		<!-- </exclusions> -->
-		<!-- </dependency> -->
 
 		<!-- Mandatory OSGI R5 API -->
 		<dependency>
@@ -144,6 +132,13 @@
 	<profiles>
 		<profile>
 			<id>run-its</id>
+			<activation>
+				<property>
+					<name>lunifera.build.full</name>
+					<value>true</value>
+				</property>
+				<activeByDefault>false</activeByDefault>
+			</activation>
 			<build>
 				<plugins>
 					<plugin>

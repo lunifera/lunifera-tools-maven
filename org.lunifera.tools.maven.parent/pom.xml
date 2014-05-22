@@ -11,7 +11,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
- 
+
 	<parent>
 		<groupId>org.lunifera.releng.maven</groupId>
 		<artifactId>org.lunifera.releng.maven.parent</artifactId>
@@ -21,26 +21,33 @@
 
 	<groupId>org.lunifera.tools.maven</groupId>
 	<artifactId>org.lunifera.tools.maven.parent</artifactId>
+	<name>Lunifera Maven : Parent POM</name>
+	<description>A parent POM maven plugin aimed to help set up Maven plug-in projects.</description>
 	<packaging>pom</packaging>
 
 	<properties>
 		<maven.version>3.2.1</maven.version>
+		<lunifera.aggregator.name>lunifera-tools-maven</lunifera.aggregator.name>
 	</properties>
-	
+
+	<url>${distribution.site.url}</url>
+	<distributionManagement>
+		<site>
+			<id>gh-pages</id>
+			<name>Lunifera GitHub Pages</name>
+			<url>${distribution.site.url}</url>
+		</site>
+	</distributionManagement>
+
 	<dependencyManagement>
 		<dependencies>
-			<!-- <dependency> -->
-			<!-- required in all cases -->
-			<!-- <groupId>org.eclipse.aether</groupId> -->
-			<!-- <artifactId>aether-api</artifactId> -->
-			<!-- <version>0.9.0.M3</version> -->
-			<!-- </dependency> -->
-			<!-- <dependency> -->
-			<!-- optional helpers, might be superfluous depending on your use case -->
-			<!-- <groupId>org.eclipse.aether</groupId> -->
-			<!-- <artifactId>aether-util</artifactId> -->
-			<!-- <version>0.9.0.M3</version> -->
-			<!-- </dependency> -->
+			<dependency>
+				<groupId>org.lunifera.releng.maven</groupId>
+				<artifactId>org.lunifera.releng.maven.licenses</artifactId>
+				<classifier>third-party</classifier>
+				<type>properties</type>
+				<version>${lunifera.license.version}</version>
+			</dependency>
 
 			<!-- Mandatory 3.x Aether API -->
 			<dependency>
@@ -90,6 +97,13 @@
 		</dependencies>
 	</dependencyManagement>
 	<dependencies>
+		<dependency>
+			<groupId>org.lunifera.releng.maven</groupId>
+			<artifactId>org.lunifera.releng.maven.licenses</artifactId>
+			<classifier>third-party</classifier>
+			<type>properties</type>
+		</dependency>
+
 		<dependency>
 			<groupId>org.apache.maven</groupId>
 			<artifactId>maven-plugin-api</artifactId>
