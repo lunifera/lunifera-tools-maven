@@ -152,27 +152,4 @@
 			</plugins>
 		</pluginManagement>
 	</build>
-	<profiles>
-		<profile>
-			<id>run-its</id>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-invoker-plugin</artifactId>
-						<configuration>
-							<addTestClassPath>true</addTestClassPath>
-						</configuration>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
-		<profile>
-			<id>reporting</id>
-			<build>
-				<plugins>
-				</plugins>
-			</build>
-		</profile>
-	</profiles>
 </project>
