@@ -1,27 +1,70 @@
-/*******************************************************************************
- * Copyright (c) 2013, 2014 C4biz Softwares ME, Loetz KG.
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- *
- * Contributors:
- *     Cristiano Gavião - initial API and implementation
- *******************************************************************************/
 package org.lunifera.tools.maven.plugin.subsystems;
+
+/*
+ * #%L
+ * Lunifera Maven : Subsystem Plugin
+ * %%
+ * Copyright (C) 2012 - 2014 C4biz Softwares ME, Loetz KG
+ * %%
+ * This program and the accompanying materials are made available under the terms of the Eclipse Public License v1.0
+ * and Eclipse Distribution License v. 1.0 which accompanies this distribution.
+ * The Eclipse Public License is available at http://www.eclipse.org/legal/epl-v10.html
+ * and the Eclipse Distribution License is available at
+ * http://www.eclipse.org/org/documents/edl-v10.php.
+ * #L%
+ */
 
 import org.apache.maven.plugins.annotations.Parameter;
 
+/**
+ * 
+ * @author cvgaviao
+ *
+ */
 public class PojoSubsystemManifestConfiguration {
+
+	public static enum ProvisionPolicy {
+		rejectDependencies,
+		acceptDependencies
+	}
+
+    /**
+     * The Export-Package header declares the exported packages for a Scoped
+     * Subsystem.
+     */
+    @Parameter(alias = "Export-Package")
+    private String exportPackage;
+
+     /**
+     * The Import-Package header declares the imported packages for a Scoped
+     * Subsystem.
+     */
+    @Parameter(alias = "Import-Package")
+    private String importPackage;
+
+	/**
+     * The Preferred-Provider header declares a list bundles and Subsystems
+     * which are the providers of capabilities that are preferred when wiring
+     * the requirements of a Scoped Subsystem.
+     */
+    @Parameter(alias = "Preferred-Provider")
+    private String preferredProvider;
+
+	/**
+     * The Provide-Capability header declares the capabilities exported for a
+     * Scoped Subsystem.
+     */
+    @Parameter(alias = "Provide-Capability")
+    private String provideCapability;
 
     /**
      * This is used to set the provision-policy of the subsystem.<p>
      * There are two policies defined by the spec: 
      */
-    @Parameter(defaultValue = "true")
-    private boolean canBePartOfOthers;
+    @Parameter()
+    private ProvisionPolicy provisionPolicy;
 
-     /**
+    /**
      * The Require-Bundle header declares the required bundles for a Scoped
      * Subsystem.
      */
@@ -36,35 +79,6 @@ public class PojoSubsystemManifestConfiguration {
     private String requireCapability;
 
     /**
-     * The Export-Package header declares the exported packages for a Scoped
-     * Subsystem.
-     */
-    @Parameter(alias = "Export-Package")
-    private String exportPackage;
-
-    /**
-     * The Provide-Capability header declares the capabilities exported for a
-     * Scoped Subsystem.
-     */
-    @Parameter(alias = "Provide-Capability")
-    private String provideCapability;
-
-    /**
-     * The Import-Package header declares the imported packages for a Scoped
-     * Subsystem.
-     */
-    @Parameter(alias = "Import-Package")
-    private String importPackage;
-
-    /**
-     * The Preferred-Provider header declares a list bundles and Subsystems
-     * which are the providers of capabilities that are preferred when wiring
-     * the requirements of a Scoped Subsystem.
-     */
-    @Parameter(alias = "Preferred-Provider")
-    private String preferredProvider;
-
-    /**
      * The Subsystem-Content header lists requirements for resources that are
      * considered to be the con- tents of this Subsystem.
      */
@@ -72,18 +86,18 @@ public class PojoSubsystemManifestConfiguration {
     private String subsystemContent;
 
     /**
-     * The Subsystem-ExportService header specifies the exported services for a
-     * Scoped Subsystem.
-     */
-    @Parameter(alias = "Subsystem-ExportService")
-    private String subsystemExportService;
-
-    /**
      * The Subsystem-Description header defines a human-readable description for
      * this Subsystem, which can potentially be localized.
      */
     @Parameter(alias = "Subsystem-Description")
     private String subsystemDescription;
+
+    /**
+     * The Subsystem-ExportService header specifies the exported services for a
+     * Scoped Subsystem.
+     */
+    @Parameter(alias = "Subsystem-ExportService")
+    private String subsystemExportService;
 
     /**
      * The Subsystem-ImportService header specifies the imported services for a
@@ -126,21 +140,21 @@ public class PojoSubsystemManifestConfiguration {
     @Parameter(alias = "Subsystem-Type", property = "${project.packaging}",
             readonly = true)
     private String subsystemType;
-    
+
     /**
      * The Subsystem-Version header specifies the version of this Subsystem.
      */
     @Parameter(alias = "Subsystem-Version", required = false, property = "${project.version}")
     private String subsystemVersion;
 
-
     public String getExportPackage() {
         return exportPackage;
     }
-
+    
     public String getImportPackage() {
         return importPackage;
     }
+
 
     public String getPreferredProvider() {
         return preferredProvider;
@@ -149,6 +163,10 @@ public class PojoSubsystemManifestConfiguration {
     public String getProvideCapability() {
         return provideCapability;
     }
+
+    public ProvisionPolicy getProvisionPolicy() {
+		return provisionPolicy;
+	}
 
     public String getRequireBundle() {
         return requireBundle;
@@ -201,6 +219,10 @@ public class PojoSubsystemManifestConfiguration {
     public void setProvideCapability(String provideCapability) {
         this.provideCapability = provideCapability;
     }
+
+    public void setProvisionPolicy(ProvisionPolicy provisionPolicy) {
+		this.provisionPolicy = provisionPolicy;
+	}
 
     public void setRequireBundle(String requireBundle) {
         this.requireBundle = requireBundle;

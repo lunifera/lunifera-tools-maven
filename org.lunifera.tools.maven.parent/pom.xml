@@ -21,15 +21,22 @@
 
 	<groupId>org.lunifera.tools.maven</groupId>
 	<artifactId>org.lunifera.tools.maven.parent</artifactId>
-	<name>Lunifera Maven : Parent POM</name>
-	<description>A parent POM maven plugin aimed to help set up Maven plug-in projects.</description>
+	<name>Lunifera Maven : Parent POM for Plug-Ins</name>
+	<description>A parent POM aimed to help to set up Maven plug-in projects.</description>
 	<packaging>pom</packaging>
 
 	<properties>
 		<maven.version>3.2.1</maven.version>
 		<lunifera.aggregator.name>lunifera-tools-maven</lunifera.aggregator.name>
+		<license.copyrightOwners>C4biz Softwares ME, Loetz KG</license.copyrightOwners>
 	</properties>
 
+    <scm>
+        <!-- convention is that the repository's name be the same as the aggregator name -->
+        <connection>${lunifera.scm.connection}</connection>
+        <developerConnection>${lunifera.scm.connection.dev}</developerConnection>
+        <url>${lunifera.scm.url}</url>
+    </scm>
 	<url>${distribution.site.url}</url>
 	<distributionManagement>
 		<site>
@@ -128,7 +135,7 @@
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-plugin-plugin</artifactId>
-					<version>3.2</version>
+					<version>3.3</version>
 					<configuration>
 						<!-- see http://jira.codehaus.org/browse/MNG-5346 -->
 						<skipErrorNoDescriptorsFound>true</skipErrorNoDescriptorsFound>
