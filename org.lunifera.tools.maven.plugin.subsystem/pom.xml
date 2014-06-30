@@ -24,6 +24,9 @@
 	<description>A maven plugin aimed to generate the OSGi subsystem compressed artifact based on information defined in the POM.</description>
 	<packaging>maven-plugin</packaging>
 
+	<properties>
+		<license.roots>src</license.roots>
+	</properties>
 	<dependencies>
 		<dependency>
 			<groupId>biz.aQute.bnd</groupId>

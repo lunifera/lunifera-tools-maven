@@ -21,6 +21,7 @@
 
 	<groupId>org.lunifera.tools.maven</groupId>
 	<artifactId>org.lunifera.tools.maven.parent</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
 	<name>Lunifera Maven : Parent POM for Plug-Ins</name>
 	<description>A parent POM aimed to help to set up Maven plug-in projects.</description>
 	<packaging>pom</packaging>
