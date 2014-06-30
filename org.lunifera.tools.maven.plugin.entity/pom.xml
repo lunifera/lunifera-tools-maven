@@ -27,6 +27,8 @@
 		<mirroring.phase>prepare-package</mirroring.phase>
 		<skipMirroring>false</skipMirroring>
 		<xtext.version>2.6.1</xtext.version>
+		<license.copyrightOwners>Lunifera GmbH (Gross Enzersdorf)</license.copyrightOwners>
+		<license.skip.header>true</license.skip.header>
 	</properties>
 
 	<dependencies>
