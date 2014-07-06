@@ -15,7 +15,7 @@
 	<parent>
 		<groupId>org.lunifera.releng.maven</groupId>
 		<artifactId>org.lunifera.releng.maven.parent.mbp.aggregator</artifactId>
-		<version>0.7.1-SNAPSHOT</version>
+		<version>0.7.2</version>
 		<relativePath/>
 	</parent>
 
@@ -32,7 +32,6 @@
 	<modules>
 		<module>org.lunifera.tools.maven.parent</module>
 		<module>org.lunifera.tools.maven.plugin.subsystem</module>
-		<module>org.lunifera.tools.maven.plugin.entity</module>
 	</modules>
 
 	<scm>

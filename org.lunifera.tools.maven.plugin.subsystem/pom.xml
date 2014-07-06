@@ -27,6 +27,18 @@
 	<properties>
 		<license.roots>src</license.roots>
 	</properties>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.lunifera.releng.maven</groupId>
+				<artifactId>org.lunifera.releng.maven.pom.node</artifactId>
+				<version>0.7.2</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 	<dependencies>
 		<dependency>
 			<groupId>biz.aQute.bnd</groupId>
