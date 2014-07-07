@@ -14,7 +14,7 @@
 	<parent>
 		<groupId>org.lunifera.tools.maven</groupId>
 		<artifactId>org.lunifera.tools.maven.parent</artifactId>
-		<version>0.0.8</version>
+		<version>0.0.9-SNAPSHOT</version>
 		<relativePath>../org.lunifera.tools.maven.parent/pom.xml</relativePath>
 	</parent>
 

@@ -20,7 +20,7 @@
 
 	<groupId>org.lunifera.tools.maven</groupId>
 	<artifactId>org.lunifera.tools.maven.aggregator</artifactId>
-  <version>0.0.8</version>
+  <version>0.0.9-SNAPSHOT</version>
 	<name>Lunifera Maven Tools</name>
 	<description>A set of Maven related projects provided by Lunifera.</description>
 	<packaging>pom</packaging>
@@ -40,7 +40,7 @@
 		<connection>${lunifera.scm.connection}</connection>
 		<developerConnection>${lunifera.scm.connection.dev}</developerConnection>
 		<url>${lunifera.scm.url}</url>
-	  <tag>v0.0.8</tag>
+	  <tag>HEAD</tag>
   </scm>
 
 	<url>${distribution.site.url}</url>
