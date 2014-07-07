@@ -8,8 +8,7 @@
 <!--# Contributors: -->
 <!--# Cristiano Gavião - initial API and implementation -->
 <!--#======================================================================= -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
@@ -21,7 +20,7 @@
 
 	<groupId>org.lunifera.tools.maven</groupId>
 	<artifactId>org.lunifera.tools.maven.parent</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.8</version>
 	<name>Lunifera Maven : Parent POM for Plug-Ins</name>
 	<description>A parent POM aimed to help to set up Maven plug-in projects.</description>
 	<packaging>pom</packaging>
@@ -37,7 +36,8 @@
         <connection>${lunifera.scm.connection}</connection>
         <developerConnection>${lunifera.scm.connection.dev}</developerConnection>
         <url>${lunifera.scm.url}</url>
-    </scm>
+      <tag>v0.0.8</tag>
+  </scm>
 	<url>${distribution.site.url}</url>
 	<distributionManagement>
 		<site>
