@@ -8,36 +8,37 @@
 <!--# Contributors: -->
 <!--# Cristiano Gavião - initial API and implementation -->
 <!--#======================================================================= -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
 		<groupId>org.lunifera.releng.maven</groupId>
 		<artifactId>org.lunifera.releng.maven.parent</artifactId>
-		<version>0.7.2</version>
+		<version>0.8.1-SNAPSHOT</version>
 		<relativePath />
 	</parent>
 
 	<groupId>org.lunifera.tools.maven</groupId>
 	<artifactId>org.lunifera.tools.maven.parent</artifactId>
 	<version>0.0.9-SNAPSHOT</version>
-	<name>Lunifera Maven : Parent POM for Plug-Ins</name>
+	<name>Lunifera Maven Tools : Parent POM for Plug-Ins</name>
 	<description>A parent POM aimed to help to set up Maven plug-in projects.</description>
 	<packaging>pom</packaging>
 
 	<properties>
-		<maven.version>3.2.1</maven.version>
 		<lunifera.aggregator.name>lunifera-tools-maven</lunifera.aggregator.name>
 		<license.copyrightOwners>C4biz Softwares ME, Loetz KG</license.copyrightOwners>
 	</properties>
 
-    <scm>
-        <!-- convention is that the repository's name be the same as the aggregator name -->
-        <connection>${lunifera.scm.connection}</connection>
-        <developerConnection>${lunifera.scm.connection.dev}</developerConnection>
-        <url>${lunifera.scm.url}</url>
-      <tag>HEAD</tag>
-  </scm>
+	<scm>
+		<!-- convention is that the repository's name be the same as the aggregator 
+			name -->
+		<connection>${lunifera.scm.connection}</connection>
+		<developerConnection>${lunifera.scm.connection.dev}</developerConnection>
+		<url>${lunifera.scm.url}</url>
+		<tag>HEAD</tag>
+	</scm>
 	<url>${distribution.site.url}</url>
 	<distributionManagement>
 		<site>

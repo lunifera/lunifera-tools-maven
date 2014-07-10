@@ -8,7 +8,8 @@
 <!--# Contributors: -->
 <!--# Cristiano Gavião (C4biz)- initial API and implementation -->
 <!--#======================================================================= -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
@@ -19,7 +20,8 @@
 	</parent>
 
 	<artifactId>org.lunifera.tools.maven.plugin.subsystem</artifactId>
-	<name>Lunifera Maven : Subsystem Plugin</name>
+	<name>Lunifera Maven Tools : Subsystem Plugin</name>
+	<version>0.0.9-SNAPSHOT</version>
 	<description>A maven plugin aimed to generate the OSGi subsystem compressed artifact based on information defined in the POM.</description>
 	<packaging>maven-plugin</packaging>
 
@@ -27,12 +29,29 @@
 		<license.roots>src</license.roots>
 	</properties>
 
+	<url>${distribution.site.url}</url>
+	<distributionManagement>
+		<site>
+			<id>gh-pages</id>
+			<name>Lunifera GitHub Pages</name>
+			<url>${distribution.site.url}</url>
+		</site>
+	</distributionManagement>
+	<scm>
+		<!-- convention is that the repository's name be the same as the aggregator 
+			name -->
+		<connection>${lunifera.scm.connection}</connection>
+		<developerConnection>${lunifera.scm.connection.dev}</developerConnection>
+		<url>${lunifera.scm.url}</url>
+		<tag>HEAD</tag>
+	</scm>
+
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
 				<groupId>org.lunifera.releng.maven</groupId>
 				<artifactId>org.lunifera.releng.maven.pom.node</artifactId>
-				<version>0.7.2</version>
+				<version>0.8.1-SNAPSHOT</version>
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>

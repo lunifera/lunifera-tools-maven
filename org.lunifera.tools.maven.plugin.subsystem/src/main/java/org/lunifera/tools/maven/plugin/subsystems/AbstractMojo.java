@@ -34,107 +34,106 @@ import org.sonatype.plexus.build.incremental.BuildContext;
  */
 public abstract class AbstractMojo extends org.apache.maven.plugin.AbstractMojo {
 
-    @Component
-    private BuildContext buildContext;
+	@Component
+	private BuildContext buildContext;
 
-    /**
-     * Directory containing the classes and resource files that should be
-     * packaged into the ESA.
-     */
-    @Parameter(defaultValue = "${project.build.outputDirectory}",
-            property = "outputDirectory", required = true)
-    private File outputDirectory;
+	/**
+	 * Directory containing the classes and resource files that should be
+	 * packaged into the ESA.
+	 */
+	@Parameter(defaultValue = "${project.build.outputDirectory}", property = "outputDirectory", required = true)
+	private File outputDirectory;
 
-    /**
+	/**
      * 
      */
-    @Component
-    // for Maven 3 only
-    private PluginDescriptor pluginDescriptor;
+	@Parameter(defaultValue = "${plugin}", readonly = true)
+	// for Maven 3 only
+	private PluginDescriptor pluginDescriptor;
 
-    /**
-     * The Maven project.
-     */
-    @Component
-    private MavenProject project;
+	/**
+	 * The Maven project.
+	 */
+	@Parameter(defaultValue = "${project}", readonly = true)
+	private MavenProject project;
 
-    /**
-     * The Maven project helper.
-     */
-    @Component
-    private MavenProjectHelper projectHelper;
+	/**
+	 * The Maven project helper.
+	 */
+	@Component
+	private MavenProjectHelper projectHelper;
 
-    /**
-     * The runtime information for Maven, used to retrieve Maven's version
-     * number.
-     *
-     * @component
-     */
-    @Component
-    private RuntimeInformation runtimeInformation;
+	/**
+	 * The runtime information for Maven, used to retrieve Maven's version
+	 * number.
+	 *
+	 * @component
+	 */
+	@Component
+	private RuntimeInformation runtimeInformation;
 
-    /**
-     * The Maven session".
-     * <p>
-     * Required in order to create the jar artifact.
-     */
-    @Component
-    private MavenSession session;
+	/**
+	 * The Maven session".
+	 * <p>
+	 * Required in order to create the jar artifact.
+	 */
+	@Parameter(defaultValue = "${session}", readonly = true)
+	private MavenSession session;
 
-    /**
-     * Set this to <code>true</code> to skip the generation of the Subsystem
-     * Manifest file.
-     */
-    @Parameter(defaultValue = "false", property = "skip", required = true)
-    private boolean skip;
+	/**
+	 * Set this to <code>true</code> to skip the generation of the Subsystem
+	 * Manifest file.
+	 */
+	@Parameter(defaultValue = "false", property = "skip", required = true)
+	private boolean skip;
 
-    public AbstractMojo() {
-    }
+	public AbstractMojo() {
+	}
 
-    @Override
-    public void execute() throws MojoExecutionException, MojoFailureException {
+	@Override
+	public void execute() throws MojoExecutionException, MojoFailureException {
 
-        if (!runtimeInformation.isMavenVersion("[3.1,)")) {
-            throw new UnsupportedOperationException(
-                    "Lunifera requires Maven 3.1 or higher.");
-        }
-        if (!getProject().getArtifact().getType().startsWith("subsystem")) {
-            getLog().warn("Ignoring project " + getProject().getId());
-        }
+		if (!runtimeInformation.isMavenVersion("[3.1,)")) {
+			throw new UnsupportedOperationException(
+					"Lunifera requires Maven 3.1 or higher.");
+		}
+		if (!getProject().getArtifact().getType().startsWith("subsystem")) {
+			getLog().warn("Ignoring project " + getProject().getId());
+		}
 
-        if (skip) {
-            getLog().info(
-                    "Skiping " + shortDescription() + " for project "
-                            + getProject().getId());
-            return;
-        }
+		if (skip) {
+			getLog().info(
+					"Skiping " + shortDescription() + " for project "
+							+ getProject().getId());
+			return;
+		}
 
-    }
+	}
 
-    protected BuildContext getBuildContext() {
-        return buildContext;
-    }
+	protected BuildContext getBuildContext() {
+		return buildContext;
+	}
 
-    protected File getOutputDirectory() {
-        return outputDirectory;
-    }
+	protected File getOutputDirectory() {
+		return outputDirectory;
+	}
 
-    protected PluginDescriptor getPluginDescriptor() {
-        return pluginDescriptor;
-    }
+	protected PluginDescriptor getPluginDescriptor() {
+		return pluginDescriptor;
+	}
 
-    protected MavenProject getProject() {
-        return project;
-    }
+	protected MavenProject getProject() {
+		return project;
+	}
 
-    protected MavenProjectHelper getProjectHelper() {
-        return projectHelper;
-    }
+	protected MavenProjectHelper getProjectHelper() {
+		return projectHelper;
+	}
 
-    protected MavenSession getSession() {
-        return session;
-    }
+	protected MavenSession getSession() {
+		return session;
+	}
 
-    protected abstract String shortDescription();
+	protected abstract String shortDescription();
 
 }
