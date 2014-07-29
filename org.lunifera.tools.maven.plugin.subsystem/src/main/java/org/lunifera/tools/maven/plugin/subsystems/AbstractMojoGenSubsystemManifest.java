@@ -66,7 +66,7 @@ public abstract class AbstractMojoGenSubsystemManifest extends AbstractMojo {
 	protected static final String SUBSYSTEM_MANIFEST_FILE = "${project.build.outputDirectory}/OSGI-INF/SUBSYSTEM.MF";
 
 	/**
-	 * Location where the ESA artifact file will be generated.
+	 * Location where the dependencies will be downloaded.
 	 */
 	@Parameter(defaultValue = "${project.build.directory}/deps", required = true, readonly = true)
 	private File dependenciesDirectory;
@@ -144,9 +144,9 @@ public abstract class AbstractMojoGenSubsystemManifest extends AbstractMojo {
 
 	protected SubsystemManifest buildSubsystemManifest()
 			throws MojoExecutionException {
-		if (subsystemManifest == null)
-			return null;
-
+		if (subsystemManifest == null){
+			throw new MojoExecutionException("You must declare <Subsystem-Manifest> in the subsystem's POM.") ;
+		}
 		org.apache.aries.subsystem.core.archive.SubsystemManifest.Builder subsystemManifestBuilder = new SubsystemManifest.Builder();
 		String subsystemType;
 		subsystemManifestBuilder.header(new SubsystemManifestVersionHeader());

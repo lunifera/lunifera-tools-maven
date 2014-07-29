@@ -14,36 +14,36 @@
 
 	<parent>
 		<groupId>org.lunifera.releng.maven</groupId>
-		<artifactId>org.lunifera.releng.maven.parent.mbp.aggregator</artifactId>
-		<version>0.8.1-SNAPSHOT</version>
+		<artifactId>lunifera-releng-maven-parent-mbp</artifactId>
+		<version>0.9.6</version>
 		<relativePath />
 	</parent>
 
 	<groupId>org.lunifera.tools.maven</groupId>
-	<artifactId>org.lunifera.tools.maven.aggregator</artifactId>
-	<version>0.0.9-SNAPSHOT</version>
-	<name>Lunifera Maven Tools</name>
+	<artifactId>lunifera-tools-maven</artifactId>
+	<version>0.1.1-SNAPSHOT</version>
+	<name>Lunifera : Maven Tools</name>
 	<description>A set of Maven related projects provided by Lunifera.</description>
 	<packaging>pom</packaging>
 
 	<properties>
-		<lunifera.aggregator.name>lunifera-tools-maven</lunifera.aggregator.name>
+		<license.copyrightOwners>C4biz Softwares ME, Loetz KG</license.copyrightOwners>
+		<lunifera.gitrepo.name>lunifera-tools-maven</lunifera.gitrepo.name>
+		<lunifera.releng.version>0.9.6</lunifera.releng.version>
 	</properties>
 
 	<modules>
-		<module>org.lunifera.tools.maven.parent</module>
 		<module>org.lunifera.tools.maven.plugin.subsystem</module>
+		<!-- <module>org.lunifera.tools.maven.plugin.entity</module> -->
 	</modules>
 
+	<url>${lunifera.site.repository.url}</url>
 	<scm>
-		<!-- convention is that the repository's name be the same as the aggregator 
-			name -->
 		<connection>${lunifera.scm.connection}</connection>
 		<developerConnection>${lunifera.scm.connection.dev}</developerConnection>
 		<url>${lunifera.scm.url}</url>
 		<tag>HEAD</tag>
 	</scm>
-	<url>${distribution.site.url}</url>
 	<distributionManagement>
 		<site>
 			<id>gh-pages</id>
@@ -51,5 +51,83 @@
 			<url>${distribution.site.url}</url>
 		</site>
 	</distributionManagement>
-
+	
+	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-plugin-plugin</artifactId>
+					<version>3.3</version>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
+	<dependencyManagement>
+		<dependencies>
+			<!-- Mandatory 3.x Aether API -->
+			<dependency>
+				<groupId>org.apache.maven</groupId>
+				<artifactId>maven-plugin-api</artifactId>
+				<version>${maven.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.maven.plugin-tools</groupId>
+				<artifactId>maven-plugin-annotations</artifactId>
+				<version>3.2</version>
+				<!-- annotations are not needed for plugin execution so you can remove 
+					this dependency for execution with using provided scope -->
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.maven</groupId>
+				<artifactId>maven-core</artifactId>
+				<version>${maven.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.maven.shared</groupId>
+				<artifactId>maven-dependency-tree</artifactId>
+				<version>2.1</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.maven</groupId>
+				<artifactId>maven-archiver</artifactId>
+				<version>2.5</version>
+			</dependency>
+			<dependency>
+				<groupId>org.codehaus.plexus</groupId>
+				<artifactId>plexus-utils</artifactId>
+				<version>3.0.17</version>
+			</dependency>
+			<dependency>
+				<groupId>org.codehaus.plexus</groupId>
+				<artifactId>plexus-archiver</artifactId>
+				<version>2.4.4</version>
+			</dependency>
+			<dependency>
+				<groupId>org.codehaus.plexus</groupId>
+				<artifactId>plexus-interpolation</artifactId>
+				<version>1.19</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+	<dependencies>
+		<dependency>
+			<groupId>org.apache.maven</groupId>
+			<artifactId>maven-plugin-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.maven.plugin-tools</groupId>
+			<artifactId>maven-plugin-annotations</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.maven</groupId>
+			<artifactId>maven-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.codehaus.plexus</groupId>
+			<artifactId>plexus-utils</artifactId>
+		</dependency>
+	</dependencies>
 </project>

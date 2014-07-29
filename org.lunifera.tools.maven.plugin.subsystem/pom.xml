@@ -14,14 +14,12 @@
 
 	<parent>
 		<groupId>org.lunifera.tools.maven</groupId>
-		<artifactId>org.lunifera.tools.maven.parent</artifactId>
-		<version>0.0.9-SNAPSHOT</version>
-		<relativePath>../org.lunifera.tools.maven.parent/pom.xml</relativePath>
+		<artifactId>lunifera-tools-maven</artifactId>
+		<version>0.1.1-SNAPSHOT</version>
 	</parent>
 
 	<artifactId>org.lunifera.tools.maven.plugin.subsystem</artifactId>
 	<name>Lunifera Maven Tools : Subsystem Plugin</name>
-	<version>0.0.9-SNAPSHOT</version>
 	<description>A maven plugin aimed to generate the OSGi subsystem compressed artifact based on information defined in the POM.</description>
 	<packaging>maven-plugin</packaging>
 
@@ -29,20 +27,9 @@
 		<license.roots>src</license.roots>
 	</properties>
 
-	<url>${distribution.site.url}</url>
-	<distributionManagement>
-		<site>
-			<id>gh-pages</id>
-			<name>Lunifera GitHub Pages</name>
-			<url>${distribution.site.url}</url>
-		</site>
-	</distributionManagement>
 	<scm>
-		<!-- convention is that the repository's name be the same as the aggregator 
-			name -->
 		<connection>${lunifera.scm.connection}</connection>
 		<developerConnection>${lunifera.scm.connection.dev}</developerConnection>
-		<url>${lunifera.scm.url}</url>
 		<tag>HEAD</tag>
 	</scm>
 
@@ -50,8 +37,8 @@
 		<dependencies>
 			<dependency>
 				<groupId>org.lunifera.releng.maven</groupId>
-				<artifactId>org.lunifera.releng.maven.pom.node</artifactId>
-				<version>0.8.1-SNAPSHOT</version>
+				<artifactId>lunifera-releng-maven-fpom-node</artifactId>
+				<version>${lunifera.releng.version}</version>
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
@@ -176,18 +163,18 @@
 		<profile>
 			<id>run-its</id>
 			<activation>
-				<property>
-					<name>lunifera.build.full</name>
-					<value>true</value>
-				</property>
-				<activeByDefault>false</activeByDefault>
+<!-- 				<property> -->
+<!-- 					<name>lunifera.build.full</name> -->
+<!-- 				</property> -->
 			</activation>
 			<build>
 				<plugins>
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-invoker-plugin</artifactId>
+						<version>1.9</version>
 						<configuration>
+							<showErrors>true</showErrors>
 							<debug>true</debug>
 							<cloneProjectsTo>${project.build.directory}/it</cloneProjectsTo>
 							<pomIncludes>
@@ -195,7 +182,7 @@
 							</pomIncludes>
 							<postBuildHookScript>verify</postBuildHookScript>
 							<localRepositoryPath>${project.build.directory}/local-repo</localRepositoryPath>
-							<settingsFile>src/it/settings.xml</settingsFile>
+							<settingsFile>${basedir}/src/it/settings.xml</settingsFile>
 							<goals>
 								<goal>clean</goal>
 								<goal>test-compile</goal>

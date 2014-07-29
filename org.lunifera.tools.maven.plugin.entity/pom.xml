@@ -4,14 +4,13 @@
 
 	<parent>
 		<groupId>org.lunifera.tools.maven</groupId>
-		<artifactId>org.lunifera.tools.maven.parent</artifactId>
-		<version>0.0.1-SNAPSHOT</version>
-		<relativePath>../org.lunifera.tools.maven.parent/pom.xml</relativePath>
+		<artifactId>lunifera-tools-maven</artifactId>
+		<version>0.1.1-SNAPSHOT</version>
 	</parent>
 
 	<artifactId>org.lunifera.tools.maven.plugin.entity</artifactId>
 	<packaging>maven-plugin</packaging>
-	<name>Lunifera Maven : Entity Plugin</name>
+	<name>Lunifera Maven Tools : Entity Plugin</name>
 	<description>A maven plugin that aims to generate the artifacts defined by the Lunifera Entity DSL.</description>
 
 	<properties>
@@ -31,6 +30,12 @@
 		<license.skip.header>true</license.skip.header>
 	</properties>
 
+	<scm>
+		<connection>${lunifera.scm.connection}</connection>
+		<developerConnection>${lunifera.scm.connection.dev}</developerConnection>
+		<tag>HEAD</tag>
+	</scm>
+	
 	<dependencies>
 		<dependency>
 			<groupId>com.google.guava</groupId>
@@ -204,9 +209,7 @@
 			<activation>
 				<property>
 					<name>lunifera.build.full</name>
-					<value>true</value>
 				</property>
-				<activeByDefault>false</activeByDefault>
 			</activation>
 			<build>
 				<plugins>
