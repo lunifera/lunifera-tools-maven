@@ -8,8 +8,7 @@
 <!--# Contributors: -->
 <!--# Cristiano Gavião (C4biz)- initial API and implementation -->
 <!--#======================================================================= -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
@@ -21,7 +20,7 @@
 
 	<groupId>org.lunifera.tools.maven</groupId>
 	<artifactId>lunifera-tools-maven</artifactId>
-	<version>0.1.1-SNAPSHOT</version>
+	<version>0.1.2</version>
 	<name>Lunifera : Maven Tools</name>
 	<description>A set of Maven related projects provided by Lunifera.</description>
 	<packaging>pom</packaging>
@@ -42,7 +41,7 @@
 		<connection>${lunifera.scm.connection}</connection>
 		<developerConnection>${lunifera.scm.connection.dev}</developerConnection>
 		<url>${lunifera.scm.url}</url>
-		<tag>HEAD</tag>
+		<tag>v0.1.2</tag>
 	</scm>
 	<distributionManagement>
 		<site>
