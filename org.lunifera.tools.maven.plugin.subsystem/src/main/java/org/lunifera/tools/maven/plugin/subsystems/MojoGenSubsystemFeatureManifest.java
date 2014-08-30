@@ -2,7 +2,7 @@ package org.lunifera.tools.maven.plugin.subsystems;
 
 /*
  * #%L
- * Lunifera Maven : Subsystem Plugin
+ * Lunifera Maven Tools : Subsystem Plugin
  * %%
  * Copyright (C) 2012 - 2014 C4biz Softwares ME, Loetz KG
  * %%

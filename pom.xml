@@ -8,13 +8,14 @@
 <!--# Contributors: -->
 <!--# Cristiano Gavião (C4biz)- initial API and implementation -->
 <!--#======================================================================= -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
 		<groupId>org.lunifera.releng.maven</groupId>
-		<artifactId>lunifera-releng-maven-parent-mbp</artifactId>
-		<version>0.12.2</version>
+		<artifactId>lunifera-releng-maven</artifactId>
+		<version>0.12.3-SNAPSHOT</version>
 		<relativePath />
 	</parent>
 
@@ -28,11 +29,12 @@
 	<properties>
 		<license.copyrightOwners>C4biz Softwares ME, Loetz KG</license.copyrightOwners>
 		<lunifera.gitrepo.name>lunifera-tools-maven</lunifera.gitrepo.name>
-		<lunifera.releng.version>0.12.2</lunifera.releng.version>
+		<lunifera.releng.version>0.12.3-SNAPSHOT</lunifera.releng.version>
 	</properties>
 
 	<modules>
 		<module>org.lunifera.tools.maven.plugin.subsystem</module>
+		<module>org.lunifera.tools.maven.plugin.bindex</module>
 		<!-- <module>org.lunifera.tools.maven.plugin.entity</module> -->
 	</modules>
 
@@ -50,7 +52,7 @@
 			<url>${distribution.site.url}</url>
 		</site>
 	</distributionManagement>
-	
+
 	<build>
 		<pluginManagement>
 			<plugins>

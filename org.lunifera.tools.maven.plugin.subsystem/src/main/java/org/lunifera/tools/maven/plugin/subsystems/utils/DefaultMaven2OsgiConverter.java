@@ -2,7 +2,7 @@ package org.lunifera.tools.maven.plugin.subsystems.utils;
 
 /*
  * #%L
- * Lunifera Maven : Subsystem Plugin
+ * Lunifera Maven Tools : Subsystem Plugin
  * %%
  * Copyright (C) 2012 - 2014 C4biz Softwares ME, Loetz KG
  * %%
@@ -14,6 +14,10 @@ package org.lunifera.tools.maven.plugin.subsystems.utils;
  * #L%
  */
 
+/*
+ * This code was borrowed from maven-bundle-plugin (https://github.com/apache/felix.git)
+ * project that is released under Apache License Version 2.0
+ */
 
 import java.io.File;
 import java.io.IOException;
@@ -33,8 +37,7 @@ import aQute.bnd.osgi.Analyzer;
 
 
 /**
- * This class was borrowed from Apache Maven-Bundle-Plugin project. It is licensed under Apache License, v2.0.
- * Default implementation of {@link Maven2OsgiConverter}
+ * Default implementation of {@link Maven2OsgiConverter}.
  * 
  * @plexus.component
  * 

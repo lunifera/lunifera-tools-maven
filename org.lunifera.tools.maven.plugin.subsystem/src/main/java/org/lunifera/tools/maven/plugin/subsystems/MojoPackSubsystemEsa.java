@@ -2,7 +2,7 @@ package org.lunifera.tools.maven.plugin.subsystems;
 
 /*
  * #%L
- * Lunifera Maven : Subsystem Plugin
+ * Lunifera Maven Tools : Subsystem Plugin
  * %%
  * Copyright (C) 2012 - 2014 C4biz Softwares ME, Loetz KG
  * %%
@@ -55,11 +55,11 @@ public class MojoPackSubsystemEsa extends AbstractMojo {
 	@Parameter(property = "deliverableByIP", defaultValue = "false")
 	private boolean deliverableByIP;
 
-	/**
-	 * Location where the ESA artifact file will be generated.
-	 */
-	@Parameter(defaultValue = "${project.build.directory}/deps", required = true, readonly = true)
-	private File dependenciesDirectory;
+    /**
+     * Location where the downloaded dependencies will be stored.
+     */
+    @Parameter(property = "dependenciesDirectory", defaultValue = "deps")
+    private String dependenciesDirectory;
 
     /**
      * This indicates that declared dependencies in the POM will be embedded into
@@ -144,7 +144,13 @@ public class MojoPackSubsystemEsa extends AbstractMojo {
 				if (embedContents == true) {
 					// add dependencies jar extracted by previous goals
 					final DefaultFileSet depsfileSet = new DefaultFileSet();
-					depsfileSet.setDirectory(dependenciesDirectory);
+					File dependenciesDirectoryFile = new File(buildDirectory, dependenciesDirectory);
+		            if (!dependenciesDirectoryFile.exists()
+		                    && dependenciesDirectoryFile.isDirectory()) {
+		                dependenciesDirectoryFile.mkdir();
+		            }
+
+					depsfileSet.setDirectory(dependenciesDirectoryFile);
 					depsfileSet.setIncludes(new String[] { "*.jar" });
 					esaArchiver.addFileSet(depsfileSet);
 				}
@@ -172,10 +178,12 @@ public class MojoPackSubsystemEsa extends AbstractMojo {
 	public void execute() throws MojoExecutionException, MojoFailureException {
 
 		super.execute();
+		
 
 		if (skipIfEmpty || !getOutputDirectory().exists()) {
 			getLog().info("Skipping generation of the ESA file.");
 		} else {
+		    
 			File esaFile = createArchive();
 			getBuildContext().refresh(esaFile);
 			String classifier = getClassifier();
@@ -187,7 +195,6 @@ public class MojoPackSubsystemEsa extends AbstractMojo {
 				getProject().getArtifact().setFile(esaFile);
 			}
 		}
-
 	}
 
 	protected File getBuildDirectory() {
