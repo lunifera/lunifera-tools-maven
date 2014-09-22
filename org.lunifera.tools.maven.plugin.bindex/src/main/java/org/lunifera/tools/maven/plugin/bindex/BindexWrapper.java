@@ -56,13 +56,11 @@ import org.jdom2.output.Format;
 import org.jdom2.output.XMLOutputter;
 import org.jdom2.xpath.XPathExpression;
 import org.jdom2.xpath.XPathFactory;
-import org.osgi.resource.Resource;
 import org.osgi.service.indexer.ResourceAnalyzer;
 import org.osgi.service.indexer.ResourceIndexer;
 import org.osgi.service.indexer.impl.KnownBundleAnalyzer;
 import org.osgi.util.tracker.ServiceTracker;
 
-import de.kalpatec.pojosr.framework.felix.framework.util.SearchClassLocation;
 import de.kalpatec.pojosr.framework.launch.BundleDescriptor;
 import de.kalpatec.pojosr.framework.launch.ClasspathScanner;
 import de.kalpatec.pojosr.framework.launch.PojoServiceRegistry;
@@ -408,24 +406,12 @@ public class BindexWrapper {
         pojoSrConfig
                 .put(PojoServiceRegistryFactory.BUNDLE_DESCRIPTORS, bundles);
 
-        // ///////////////////
-        System.err.println("BindexWrapper Resource:"
-                + SearchClassLocation.which(Resource.class));
-
-        // ////////////////////
-        System.err.println("BindexWrapper PojoServiceRegistry:"
-                + SearchClassLocation.which(PojoServiceRegistryFactory.class));
-
         // Start PojoSR Service Registry
         ServiceLoader<PojoServiceRegistryFactory> loader = ServiceLoader
                 .load(PojoServiceRegistryFactory.class);
 
         PojoServiceRegistry registry = loader.iterator().next()
                 .newPojoServiceRegistry(pojoSrConfig);
-
-        // ////////////////////
-        System.err.println("BindexWrapper PojoServiceRegistry:"
-                + SearchClassLocation.which(registry.getClass()));
 
         // Look for indexer and run index generation
         ServiceTracker<ResourceIndexer, ResourceIndexer> tracker = new ServiceTracker<>(
