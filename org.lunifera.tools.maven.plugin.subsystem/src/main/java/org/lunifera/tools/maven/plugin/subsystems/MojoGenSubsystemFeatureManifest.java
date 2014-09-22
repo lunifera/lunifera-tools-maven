@@ -23,7 +23,7 @@ import org.apache.maven.plugins.annotations.ResolutionScope;
  * @author cvgaviao
  *
  */
-@Mojo(name = "gen-manifest-feature", defaultPhase = LifecyclePhase.GENERATE_RESOURCES, threadSafe = true, requiresDependencyResolution = ResolutionScope.COMPILE_PLUS_RUNTIME)
+@Mojo(name = "gen-manifest-feature", defaultPhase = LifecyclePhase.GENERATE_RESOURCES, threadSafe = true, requiresDependencyResolution = ResolutionScope.COMPILE)
 public class MojoGenSubsystemFeatureManifest extends
 		AbstractMojoGenSubsystemManifest {
 

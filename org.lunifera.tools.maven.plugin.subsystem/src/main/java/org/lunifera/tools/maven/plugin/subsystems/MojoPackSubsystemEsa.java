@@ -15,7 +15,6 @@ package org.lunifera.tools.maven.plugin.subsystems;
  */
 
 import java.io.File;
-
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugins.annotations.Component;
@@ -31,29 +30,31 @@ import org.codehaus.plexus.archiver.util.DefaultFileSet;
  * @author <a href="cvgaviao@gmail.com">Cristiano Gavião</a>
  */
 
-@Mojo(name = "pack-esa", defaultPhase = LifecyclePhase.PACKAGE, requiresDependencyResolution = ResolutionScope.COMPILE_PLUS_RUNTIME)
+@Mojo(name = "pack-esa", defaultPhase = LifecyclePhase.PACKAGE,
+        requiresDependencyResolution = ResolutionScope.COMPILE)
 public class MojoPackSubsystemEsa extends AbstractMojo {
 
-	private static final String[] DEFAULT_EXCLUDES = new String[] { "**/package.html" };
-	private static final String[] DEFAULT_INCLUDES = new String[] { "**/**" };
+    private static final String[] DEFAULT_EXCLUDES = new String[] { "**/package.html" };
+    private static final String[] DEFAULT_INCLUDES = new String[] { "**/**" };
 
-	/**
-	 * Location where the ESA artifact file will be generated.
-	 */
-	@Parameter(defaultValue = "${project.build.directory}", required = true, readonly = true)
-	private File buildDirectory;
+    /**
+     * Location where the ESA artifact file will be generated.
+     */
+    @Parameter(defaultValue = "${project.build.directory}", required = true,
+            readonly = true)
+    private File buildDirectory;
 
-	/**
-	 * A custom classifier to be added to the generated artifact file name.
-	 */
-	@Parameter(property = "classifier")
-	private String classifier;
+    /**
+     * A custom classifier to be added to the generated artifact file name.
+     */
+    @Parameter(property = "classifier")
+    private String classifier;
 
-	/**
-	 * Will allow generation of Initial Provisioning meta-data.
-	 */
-	@Parameter(property = "deliverableByIP", defaultValue = "false")
-	private boolean deliverableByIP;
+    /**
+     * Will allow generation of Initial Provisioning meta-data.
+     */
+    @Parameter(property = "deliverableByIP", defaultValue = "false")
+    private boolean deliverableByIP;
 
     /**
      * Location where the downloaded dependencies will be stored.
@@ -62,196 +63,198 @@ public class MojoPackSubsystemEsa extends AbstractMojo {
     private String dependenciesDirectory;
 
     /**
-     * This indicates that declared dependencies in the POM will be embedded into
-     * the subsystem's archive file.
+     * This indicates that declared dependencies in the POM will be embedded
+     * into the subsystem's archive file.
      */
-    @Parameter(defaultValue = "false")
+    @Parameter(property = "embedContents", defaultValue = "false")
     protected boolean embedContents;
 
     /**
-	 * The Jar archiver.
-	 */
-	@Component(role = org.codehaus.plexus.archiver.Archiver.class, hint = "esa")
-	private SubsystemArchiverComponent esaArchiver;
-	/**
-	 * List of files to exclude. Specified as fileset patterns which are
-	 * relative to the input directory whose contents is being packaged into the
-	 * ESA.
-	 * 
-	 * @parameter
-	 */
-	private String[] excludes;
+     * The Jar archiver.
+     */
+    @Component(role = org.codehaus.plexus.archiver.Archiver.class, hint = "esa")
+    private SubsystemArchiverComponent esaArchiver;
+    /**
+     * List of files to exclude. Specified as fileset patterns which are
+     * relative to the input directory whose contents is being packaged into the
+     * ESA.
+     * 
+     * @parameter
+     */
+    private String[] excludes;
 
-	/**
-	 * The final name of the generated ESA artifact file.
-	 */
-	@Parameter(defaultValue = "${project.build.finalName}", required = true, readonly = true)
-	private String finalName;
+    /**
+     * The final name of the generated ESA artifact file.
+     */
+    @Parameter(defaultValue = "${project.build.finalName}", required = true,
+            readonly = true)
+    private String finalName;
 
-	/**
-	 * Whether creating the archiveConfiguration should be forced.
-	 */
-	@Parameter(defaultValue = "false", property = "forceCreation", required = true)
-	private boolean forceCreation;
+    /**
+     * Whether creating the archiveConfiguration should be forced.
+     */
+    @Parameter(defaultValue = "false", property = "forceCreation",
+            required = true)
+    private boolean forceCreation;
 
-	/**
-	 * List of files to include. Specified as fileset patterns which are
-	 * relative to the input directory whose contents is being packaged into the
-	 * ESA.
-	 * 
-	 * @parameter
-	 */
-	private String[] includes;
+    /**
+     * List of files to include. Specified as fileset patterns which are
+     * relative to the input directory whose contents is being packaged into the
+     * ESA.
+     * 
+     * @parameter
+     */
+    private String[] includes;
 
-	/**
-	 * Skip creating empty archives.
-	 */
-	@Parameter(defaultValue = "false", property = "skipIfEmpty", required = true)
-	private boolean skipIfEmpty;
+    /**
+     * Skip creating empty archives.
+     */
+    @Parameter(defaultValue = "false", property = "skipIfEmpty",
+            required = true)
+    private boolean skipIfEmpty;
 
-	/**
-	 * Use this to prevent generation of the mimetype tag file entry in the
-	 * generated subsystem archive.
-	 */
-	@Parameter(defaultValue = "false")
-	protected boolean skipMimeEntry;
+    /**
+     * Use this to prevent generation of the mimetype tag file entry in the
+     * generated subsystem archive.
+     */
+    @Parameter(defaultValue = "false")
+    protected boolean skipMimeEntry;
 
-	/**
-	 * Generates the Subsystem archiveConfiguration file.
-	 */
-	public File createArchive() throws MojoExecutionException {
+    /**
+     * Generates the Subsystem archiveConfiguration file.
+     */
+    public File createArchive() throws MojoExecutionException {
 
-		try {
-			esaArchiver.skipMimeTypeFiTag(skipMimeEntry);
-			
-			File outputDirectory = getOutputDirectory();
-			if (!outputDirectory.exists()) {
-				if (!skipIfEmpty) {
-					throw new MojoExecutionException(
-							"An empty ESA file is forbidden.");
-				} else {
-					getLog().warn(
-							"ESA will be empty - no content was marked for inclusion!");
-				}
-			} else {
-				final DefaultFileSet fileSet = new DefaultFileSet();
-				fileSet.setDirectory(outputDirectory);
-				fileSet.setIncludes(getIncludes());
-				fileSet.setExcludes(getExcludes());
-				fileSet.setIncludingEmptyDirectories(false);
-				esaArchiver.addFileSet(fileSet);
+        esaArchiver.skipMimeTypeFiTag(skipMimeEntry);
 
-				if (embedContents == true) {
-					// add dependencies jar extracted by previous goals
-					final DefaultFileSet depsfileSet = new DefaultFileSet();
-					File dependenciesDirectoryFile = new File(buildDirectory, dependenciesDirectory);
-		            if (!dependenciesDirectoryFile.exists()
-		                    && dependenciesDirectoryFile.isDirectory()) {
-		                dependenciesDirectoryFile.mkdir();
-		            }
+        File outputDirectory = getOutputDirectory();
+        if (!outputDirectory.exists()) {
+            if (!skipIfEmpty) {
+                throw new MojoExecutionException(
+                        "An empty ESA file is forbidden.");
+            } else {
+                getLog().warn(
+                        "ESA will be empty - no content was marked for inclusion!");
+            }
+        } else {
+            final DefaultFileSet fileSet = new DefaultFileSet();
+            fileSet.setDirectory(outputDirectory);
+            fileSet.setIncludes(getIncludes());
+            fileSet.setExcludes(getExcludes());
+            fileSet.setIncludingEmptyDirectories(false);
+            esaArchiver.addFileSet(fileSet);
 
-					depsfileSet.setDirectory(dependenciesDirectoryFile);
-					depsfileSet.setIncludes(new String[] { "*.jar" });
-					esaArchiver.addFileSet(depsfileSet);
-				}
-			}
+            if (embedContents == true) {
+                // add dependencies jar extracted by previous goals
+                final DefaultFileSet depsfileSet = new DefaultFileSet();
+                File dependenciesDirectoryFile = new File(buildDirectory,
+                        dependenciesDirectory + "/");
+                if (!dependenciesDirectoryFile.exists()) {
+                    dependenciesDirectoryFile.mkdirs();
+                }
 
-			File esaFile = getTargetFile(getBuildDirectory(), getFinalName(),
-					getClassifier());
-			esaArchiver.setDestFile(esaFile);
-			esaArchiver.createArchive();
+                depsfileSet.setDirectory(dependenciesDirectoryFile);
+                depsfileSet.setIncludes(new String[] { "*.jar" });
+                esaArchiver.addFileSet(depsfileSet);
+            }
+        }
 
-			return esaFile;
-		} catch (Exception e) {
-			throw new MojoExecutionException("Error assembling ESA file.", e);
-		}
-	}
+        File esaFile = getTargetFile(getBuildDirectory(), getFinalName(),
+                getClassifier());
+        esaArchiver.setDestFile(esaFile);
+        try {
+            esaArchiver.createArchive();
+        } catch (Exception e) {
+            getLog().error(e);
+        }
+        return esaFile;
+    }
 
-	/**
-	 * Generate the ESA file for the current project.
-	 * 
-	 * @throws MojoExecutionException
-	 *             if an error occurred while building the ESA file
-	 * @throws MojoFailureException
-	 */
-	@Override
-	public void execute() throws MojoExecutionException, MojoFailureException {
+    /**
+     * Generate the ESA file for the current project.
+     * 
+     * @throws MojoExecutionException
+     *             if an error occurred while building the ESA file
+     * @throws MojoFailureException
+     */
+    @Override
+    public void execute() throws MojoExecutionException, MojoFailureException {
 
-		super.execute();
-		
+        super.execute();
 
-		if (skipIfEmpty || !getOutputDirectory().exists()) {
-			getLog().info("Skipping generation of the ESA file.");
-		} else {
-		    
-			File esaFile = createArchive();
-			getBuildContext().refresh(esaFile);
-			String classifier = getClassifier();
-			if (classifier != null) {
-				getProjectHelper().attachArtifact(getProject(),
-						SubsystemArchiverComponent.SUBSYSTEM_EXTENSION,
-						classifier, esaFile);
-			} else {
-				getProject().getArtifact().setFile(esaFile);
-			}
-		}
-	}
+        if (skipIfEmpty || !getOutputDirectory().exists()) {
+            getLog().info("Skipping generation of the ESA file.");
+        } else {
+            synchronized (MojoPackSubsystemEsa.class) {
+                File esaFile = createArchive();
+                getBuildContext().refresh(esaFile);
+                String classifier = getClassifier();
+                if (classifier != null) {
+                    getProjectHelper().attachArtifact(getProject(),
+                            SubsystemArchiverComponent.SUBSYSTEM_EXTENSION,
+                            classifier, esaFile);
+                } else {
+                    getProject().getArtifact().setFile(esaFile);
+                }
+                getBuildContext().refresh(getOutputDirectory());
+            }
+        }
+    }
 
-	protected File getBuildDirectory() {
-		return buildDirectory;
-	}
+    protected File getBuildDirectory() {
+        return buildDirectory;
+    }
 
-	protected String getClassifier() {
-		return classifier;
-	}
+    protected String getClassifier() {
+        return classifier;
+    }
 
-	private String[] getExcludes() {
-		if (excludes != null && excludes.length > 0) {
-			return excludes;
-		}
-		return DEFAULT_EXCLUDES;
-	}
+    private String[] getExcludes() {
+        if (excludes != null && excludes.length > 0) {
+            return excludes;
+        }
+        return DEFAULT_EXCLUDES;
+    }
 
-	protected String getFinalName() {
-		return finalName;
-	}
+    protected String getFinalName() {
+        return finalName;
+    }
 
-	private String[] getIncludes() {
-		if (includes != null && includes.length > 0) {
-			return includes;
-		}
-		return DEFAULT_INCLUDES;
-	}
+    private String[] getIncludes() {
+        if (includes != null && includes.length > 0) {
+            return includes;
+        }
+        return DEFAULT_INCLUDES;
+    }
 
-	protected File getTargetFile(File basedir, String finalName,
-			String classifier) {
+    protected File getTargetFile(File basedir, String finalName,
+            String classifier) {
 
-		// TODO When Deployment spec were out we need to have a classifier for
-		// deployment archives that contain only DEPLOYMENT.MF name than the
-		// Subsytem archive.
-		if (classifier == null) {
-			classifier = "";
-		} else if (classifier.trim().length() > 0
-				&& !classifier.startsWith("-")) {
-			classifier = "-" + classifier;
-		}
+        // TODO When Deployment spec were out we need to have a classifier for
+        // deployment archives that contain only DEPLOYMENT.MF name than the
+        // Subsytem archive.
+        if (classifier == null) {
+            classifier = "";
+        } else
+            if (classifier.trim().length() > 0 && !classifier.startsWith("-")) {
+                classifier = "-" + classifier;
+            }
+        return new File(basedir, finalName + classifier + "."
+                + SubsystemArchiverComponent.SUBSYSTEM_EXTENSION);
+    }
 
-		return new File(basedir, finalName + classifier + "."
-				+ SubsystemArchiverComponent.SUBSYSTEM_EXTENSION);
-	}
+    protected boolean isForceCreation() {
+        return forceCreation;
+    }
 
-	protected boolean isForceCreation() {
-		return forceCreation;
-	}
+    protected boolean isSkipIfEmpty() {
+        return skipIfEmpty;
+    }
 
-	protected boolean isSkipIfEmpty() {
-		return skipIfEmpty;
-	}
+    @Override
+    protected String shortDescription() {
 
-	@Override
-	protected String shortDescription() {
-
-		return "subsystem archive generation";
-	}
+        return "subsystem archive generation";
+    }
 
 }

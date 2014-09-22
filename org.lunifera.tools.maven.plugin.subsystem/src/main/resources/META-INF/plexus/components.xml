@@ -61,7 +61,7 @@
 								${project.groupId}:${project.artifactId}:${project.version}:pack-esa
 							</package>
 							<install>
-								org.apache.maven.plugins:maven-install-plugin:install
+								org.apache.maven.plugins:maven-install-plugin:install,
 							</install>
 							<deploy>
 								org.apache.maven.plugins:maven-deploy-plugin:deploy
@@ -113,7 +113,7 @@
 							<package>${project.groupId}:${project.artifactId}:${project.version}:pack-esa
 							</package>
 							<install>
-								org.apache.maven.plugins:maven-install-plugin:install
+								org.apache.maven.plugins:maven-install-plugin:install,
 							</install>
 							<deploy>
 								org.apache.maven.plugins:maven-deploy-plugin:deploy
@@ -165,7 +165,7 @@
 							<package>${project.groupId}:${project.artifactId}:${project.version}:pack-esa
 							</package>
 							<install>
-								org.apache.maven.plugins:maven-install-plugin:install
+								org.apache.maven.plugins:maven-install-plugin:install,
 							</install>
 							<deploy>
 								org.apache.maven.plugins:maven-deploy-plugin:deploy

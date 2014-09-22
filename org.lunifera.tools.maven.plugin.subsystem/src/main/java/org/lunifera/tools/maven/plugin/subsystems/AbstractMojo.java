@@ -47,14 +47,14 @@ public abstract class AbstractMojo extends org.apache.maven.plugin.AbstractMojo 
 	/**
      * 
      */
-	@Parameter(defaultValue = "${plugin}", readonly = true)
+	@Parameter(required = true, property = "plugin", readonly = true)
 	// for Maven 3 only
 	private PluginDescriptor pluginDescriptor;
 
 	/**
 	 * The Maven project.
 	 */
-	@Parameter(defaultValue = "${project}", readonly = true)
+	@Parameter(required = true, property = "project", readonly = true)
 	private MavenProject project;
 
 	/**
@@ -77,7 +77,7 @@ public abstract class AbstractMojo extends org.apache.maven.plugin.AbstractMojo 
 	 * <p>
 	 * Required in order to create the jar artifact.
 	 */
-	@Parameter(defaultValue = "${session}", readonly = true)
+	@Parameter(required = true, property = "session", readonly = true)
 	private MavenSession session;
 
 	/**

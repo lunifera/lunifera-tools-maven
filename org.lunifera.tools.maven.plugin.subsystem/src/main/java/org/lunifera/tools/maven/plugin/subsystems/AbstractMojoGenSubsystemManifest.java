@@ -22,12 +22,14 @@ import java.nio.file.FileVisitResult;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.SimpleFileVisitor;
+import java.nio.file.StandardCopyOption;
+import java.nio.file.attribute.BasicFileAttributes;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.nio.file.attribute.BasicFileAttributes;
+
 import org.apache.aries.subsystem.core.archive.DeploymentManifest;
 import org.apache.aries.subsystem.core.archive.ExportPackageHeader;
 import org.apache.aries.subsystem.core.archive.GenericHeader;
@@ -87,14 +89,16 @@ public abstract class AbstractMojoGenSubsystemManifest extends AbstractMojo {
      * This indicates that declared dependencies in the POM will be used to
      * populate the subsystem's contents in the manifest file.
      */
-    @Parameter(defaultValue = "true")
+    @Parameter(property = "deriveContentsFromDependencies",
+            defaultValue = "true")
     protected boolean deriveContentsFromDependencies;
 
     /**
      * This indicates that declared dependencies in the POM will be embedded
      * into the subsystem's archive file.
      */
-    @Parameter(defaultValue = "false")
+    @Parameter(property = "embedContents",
+            defaultValue = "false")
     protected boolean embedContents;
 
     /**
@@ -124,7 +128,8 @@ public abstract class AbstractMojoGenSubsystemManifest extends AbstractMojo {
      * 
      * @since 0.0.1
      */
-    @Parameter(defaultValue = "${repositorySystemSession}", readonly = true)
+    @Parameter(property = "repositorySystemSession", readonly = true,
+            required = true)
     private RepositorySystemSession repositorySystemSession;
 
     /**
@@ -263,12 +268,16 @@ public abstract class AbstractMojoGenSubsystemManifest extends AbstractMojo {
     private SubsystemContentHeader calculateContentFromProjectDependencies(
             String subsystemContentConfig) throws MojoExecutionException {
         SubsystemContentHeader subsystemContentHeader = null;
-        Set<Artifact> artifacts = getProject().getDependencyArtifacts();
         Set<Clause> clauses = new HashSet<Clause>();
-
         Map<String, MutableClause> clausesMap = extractClausesFromString(subsystemContentConfig);
 
+        Set<Artifact> artifacts = getProject().getDependencyArtifacts();
         for (Artifact artifact : artifacts) {
+
+            if (artifact.getClassifier() != null
+                    && artifact.getClassifier().equals("third-party")) {
+                continue;
+            }
 
             getLog().info("Resolving dependency artifact " + artifact);
             ArtifactResolutionRequest request = new ArtifactResolutionRequest()
@@ -317,30 +326,41 @@ public abstract class AbstractMojoGenSubsystemManifest extends AbstractMojo {
                     if (embedContents == true) {
                         boolean created = false;
                         try {
-                            File dependenciesDirectoryFile = new File(buildDirectory, dependenciesDirectory + "/");
+                            File dependenciesDirectoryFile = new File(
+                                    buildDirectory, dependenciesDirectory + "/");
                             if (!dependenciesDirectoryFile.exists()) {
                                 created = dependenciesDirectoryFile.mkdirs();
                             } else {
-                                Files.walkFileTree(dependenciesDirectoryFile.toPath(), new SimpleFileVisitor<Path>() {
-                                    @Override
-                                    public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
-                                        Files.delete(file);
-                                        return FileVisitResult.CONTINUE;
-                                    }
-                                    @Override
-                                    public FileVisitResult postVisitDirectory(Path dir, IOException exc) throws IOException {
-                                        Files.delete(dir);
-                                        return FileVisitResult.CONTINUE;
-                                    }
-                                });
+                                Files.walkFileTree(
+                                        dependenciesDirectoryFile.toPath(),
+                                        new SimpleFileVisitor<Path>() {
+                                            @Override
+                                            public FileVisitResult visitFile(
+                                                    Path file,
+                                                    BasicFileAttributes attrs)
+                                                    throws IOException {
+                                                Files.delete(file);
+                                                return FileVisitResult.CONTINUE;
+                                            }
+
+                                            @Override
+                                            public FileVisitResult postVisitDirectory(
+                                                    Path dir, IOException exc)
+                                                    throws IOException {
+                                                Files.delete(dir);
+                                                return FileVisitResult.CONTINUE;
+                                            }
+                                        });
                                 created = true;
                             }
-                            if (created && artifact.getFile().isFile() && artifact.getFile().exists()) {
+                            if (created && artifact.getFile().isFile()
+                                    && artifact.getFile().exists()) {
                                 // java7 new stuff
                                 Files.copy(artifact.getFile().toPath(),
                                         new File(dependenciesDirectoryFile,
                                                 artifact.getFile().getName())
-                                                .toPath());
+                                                .toPath(),
+                                        StandardCopyOption.REPLACE_EXISTING);
                             }
                         } catch (IOException e) {
                             e.printStackTrace();
@@ -440,6 +460,7 @@ public abstract class AbstractMojoGenSubsystemManifest extends AbstractMojo {
             if (!file.getParentFile().exists()) {
                 file.getParentFile().mkdirs();
             }
+            getBuildContext().refresh(file);
             // TODO: should always override the file ?
             if (file.exists()) {
                 file.delete();
