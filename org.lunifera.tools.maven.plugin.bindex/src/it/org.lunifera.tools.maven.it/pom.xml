@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- #%L
+  Lunifera Maven Tools : OSGi Repository Indexer Plugin
+  %%
+  Copyright (C) 2012 - 2014 C4biz Softwares ME, Loetz KG
+  %%
+  This program and the accompanying materials are 
+  	made available under the terms of the Eclipse Public License v1.0 and Eclipse 
+  	Distribution License v. 1.0 which accompanies this distribution. The Eclipse 
+  	Public License is available at http://www.eclipse.org/legal/epl-v10.html 
+  	and the Eclipse Distribution License is available at http://www.eclipse.org/org/documents/edl-v10.php.
+  #L% -->
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>org.lunifera.tools.maven</groupId>
+	<artifactId>org.lunifera.tools.maven.it</artifactId>
+	<version>0.1.2</version>
+	<packaging>subsystem-composite</packaging>
+
+	<description>A simple IT verifying the basic use case.</description>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>@project.groupId@</groupId>
+				<artifactId>@project.artifactId@</artifactId>
+				<version>@project.version@</version>
+				<extensions>true</extensions>
+				<configuration>
+					<embedContents>false</embedContents>
+					<skipMimeEntry>true</skipMimeEntry>
+					<Subsystem-Manifest>
+						<provisionPolicy>acceptDependencies</provisionPolicy>
+						<provideCapability>lunifera.kernel;version:Version=0.0.1</provideCapability>
+					</Subsystem-Manifest>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  #%L
+  Lunifera Maven Tools : OSGi Repository Indexer Plugin
+  %%
+  Copyright (C) 2012 - 2014 C4biz Softwares ME, Loetz KG
+  %%
+  This program and the accompanying materials are made available under the terms of the Eclipse Public License v1.0
+  and Eclipse Distribution License v. 1.0 which accompanies this distribution.
+  The Eclipse Public License is available at http://www.eclipse.org/legal/epl-v10.html
+  and the Eclipse Distribution License is available at
+  http://www.eclipse.org/org/documents/edl-v10.php.
+  #L%
+  -->
+
+<repo:repository increment="1410476149404" name="repositoryName" xmlns:repo="http://www.osgi.org/xmlns/repository/v1.0.0">
+  <repo:resource>
+    <repo:capability namespace="osgi.identity">
+      <repo:attribute name="osgi.identity" value="ant-launcher"/>
+      <repo:attribute name="type" value="jarfile"/>
+      <repo:attribute name="version" type="Version" value="1.6.5"/>
+    </repo:capability>
+    <repo:capability namespace="osgi.content">
+      <repo:attribute name="osgi.content" value="bdc0a7920c18601f83030e951dbfd092505128d8db55121b96a4472748ee0b20"/>
+      <repo:attribute name="url" value="ant/ant-launcher/1.6.5/ant-launcher-1.6.5.jar"/>
+      <repo:attribute name="size" type="Long" value="9180"/>
+      <repo:attribute name="mime" value="application/java-archive"/>
+    </repo:capability>
+  </repo:resource>
+  <repo:resource>
+    <repo:capability namespace="osgi.identity">
+      <repo:attribute name="osgi.identity" value="ant-launcher"/>
+      <repo:attribute name="type" value="jarfile"/>
+      <repo:attribute name="version" type="Version" value="1.7.1"/>
+    </repo:capability>
+    <repo:capability namespace="osgi.content">
+      <repo:attribute name="osgi.content" value="25eb5926c975ac6f4126feeb9d004f53f9ebf07dc117f5db9958a6bfb3110783"/>
+      <repo:attribute name="url" value="org/apache/ant/ant-launcher/1.7.1/ant-launcher-1.7.1.jar"/>
+      <repo:attribute name="size" type="Long" value="12143"/>
+      <repo:attribute name="mime" value="application/java-archive"/>
+    </repo:capability>
+  </repo:resource>
+  <repo:resource>
+    <repo:capability namespace="osgi.identity">
+      <repo:attribute name="osgi.identity" value="ant-launcher"/>
+      <repo:attribute name="type" value="jarfile"/>
+      <repo:attribute name="version" type="Version" value="1.8.2"/>
+    </repo:capability>
+    <repo:capability namespace="osgi.content">
+      <repo:attribute name="osgi.content" value="870a5e15c39fc6362d790402e2b0444e0c7fdf8484afa9b45c8f3de1f78a0186"/>
+      <repo:attribute name="url" value="org/apache/ant/ant-launcher/1.8.2/ant-launcher-1.8.2.jar"/>
+      <repo:attribute name="size" type="Long" value="12322"/>
+      <repo:attribute name="mime" value="application/java-archive"/>
+    </repo:capability>
+  </repo:resource>
+  <repo:resource>
+    <repo:capability namespace="osgi.identity">
+      <repo:attribute name="osgi.identity" value="ant-launcher"/>
+      <repo:attribute name="type" value="jarfile"/>
+      <repo:attribute name="version" type="Version" value="1.8.3"/>
+    </repo:capability>
+    <repo:capability namespace="osgi.content">
+      <repo:attribute name="osgi.content" value="8c374e8ea4a7e714a787075fd82ba9ae1c2a0f21e8f6ae7e9107d71d964f9647"/>
+      <repo:attribute name="url" value="org/apache/ant/ant-launcher/1.8.3/ant-launcher-1.8.3.jar"/>
+      <repo:attribute name="size" type="Long" value="18432"/>
+      <repo:attribute name="mime" value="application/java-archive"/>
+    </repo:capability>
+  </repo:resource>
+  <repo:resource>
+    <repo:capability namespace="osgi.identity">
+      <repo:attribute name="osgi.identity" value="ant-launcher"/>
+      <repo:attribute name="type" value="jarfile"/>
+      <repo:attribute name="version" type="Version" value="1.8.4"/>
+    </repo:capability>
+    <repo:capability namespace="osgi.content">
+      <repo:attribute name="osgi.content" value="4394951e8d8533732bf5745f4e7bffa721228c7d5475a2d5f143cb35ed9c2941"/>
+      <repo:attribute name="url" value="org/apache/ant/ant-launcher/1.8.4/ant-launcher-1.8.4.jar"/>
+      <repo:attribute name="size" type="Long" value="18429"/>
+      <repo:attribute name="mime" value="application/java-archive"/>
+    </repo:capability>
+  </repo:resource>
+</repo:repository>

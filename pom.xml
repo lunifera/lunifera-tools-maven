@@ -22,7 +22,7 @@
 	<groupId>org.lunifera.tools.maven</groupId>
 	<artifactId>lunifera-tools-maven</artifactId>
 	<version>0.1.5-SNAPSHOT</version>
-	<name>Lunifera : Maven Tools</name>
+	<name>Lunifera Maven Tools</name>
 	<description>A set of Maven related projects provided by Lunifera.</description>
 	<packaging>pom</packaging>
 
@@ -30,6 +30,7 @@
 		<license.copyrightOwners>C4biz Softwares ME, Loetz KG</license.copyrightOwners>
 		<lunifera.gitrepo.name>lunifera-tools-maven</lunifera.gitrepo.name>
 		<lunifera.releng.version>0.12.3-SNAPSHOT</lunifera.releng.version>
+		<lunifera.utils.version>0.7.1-SNAPSHOT</lunifera.utils.version>
 	</properties>
 
 	<modules>
